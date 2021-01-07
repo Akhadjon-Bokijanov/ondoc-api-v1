@@ -17,9 +17,8 @@ class CreateFacturasTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
 
-            $table->string('facturaId')->primary()->unique();
+            $table->string('facturaId')->unique();
             $table->integer('version')->default(0);
-            $table->integer('facturaType');
             $table->boolean('singleSidedType')->default(false);
             $table->string('facturaNo', 1000);
             $table->dateTime('facturaDate');
@@ -27,7 +26,7 @@ class CreateFacturasTable extends Migration
             $table->string('oldFacturaNo')->nullable();
             $table->dateTime('oldFacturaDate')->nullable();
             $table->string('facturaProductId');
-            $table->longText('notes')->nullable();
+            $table->text('notes')->nullable();
             $table->integer('facturaType');
             $table->integer('currentStateid');
             $table->string('lotId')->nullable();
@@ -43,11 +42,11 @@ class CreateFacturasTable extends Migration
 
             $table->string('empowermentNo', 1000)->nullable();
             $table->dateTime('empowermentDateOfIssue')->nullable();
-            $table->string('agentFio', 1000)->nullable();
+            $table->text('agentFio')->nullable();
             $table->integer('agentTin')->nullable();
             $table->string('agentFacturaId', 100)->nullable();
 
-            $table->string('itemReleasedFio', 1000)->nullable();
+            $table->text('itemReleasedFio')->nullable();
             $table->string("itemReleaseTin")->nullable();
             $table->string('itemReleasePinf1')->nullable();
 
@@ -56,30 +55,30 @@ class CreateFacturasTable extends Migration
 
             $table->string('sellerAccount', 1000)->nullable();
             $table->string('sellerBankId', 10)->nullable();
-            $table->string('sellerName', 1000);
-            $table->string('sellerAddress', 1000)->nullable();
+            $table->text('sellerName');
+            $table->text('sellerAddress')->nullable();
             $table->string('sellerMobilePhone', 20)->nullable();
             $table->string('sellerWorkPhone', 20)->nullable();
             $table->string('sellerOked', 20)->nullable();
             $table->string('sellerDistrictId', 20)->nullable();
-            $table->string('sellerDirector', 1000)->nullable();
-            $table->string('sellerAccountant', 1000)->nullable();
+            $table->text('sellerDirector')->nullable();
+            $table->text('sellerAccountant')->nullable();
             $table->string('sellerVatRegCode', 15)->nullable();
-            $table->string('sellerBranchName', 1000)->nullable();
+            $table->text('sellerBranchName')->nullable();
             $table->string('sellerBranchCode', 15)->nullable();
 
             $table->string('buyerAccount', 1000)->nullable();
             $table->string('buyerBankId', 10)->nullable();
-            $table->string('buyerName', 1000);
-            $table->string('buyerAddress', 1000)->nullable();
+            $table->text('buyerName');
+            $table->text('buyerAddress')->nullable();
             $table->string('buyerMobilePhone', 20)->nullable();
             $table->string('buyerWorkPhone', 20)->nullable();
             $table->string('buyerOked', 20)->nullable();
             $table->string('buyerDistrictId', 20)->nullable();
-            $table->string('buyerDirector', 1000)->nullable();
-            $table->string('buyerAccountant', 1000)->nullable();
+            $table->text('buyerDirector')->nullable();
+            $table->text('buyerAccountant')->nullable();
             $table->string('buyerVatRegCode', 15)->nullable();
-            $table->string('buyerBranchName', 1000)->nullable();
+            $table->text('buyerBranchName')->nullable();
             $table->string('buyerBranchCode', 15)->nullable();
 
             $table->timestamps();
