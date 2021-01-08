@@ -12,4 +12,9 @@ class Factura extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function facturaProducts(){
+        return $this->hasMany(FacturaProduct::class);
+    }
+
 }

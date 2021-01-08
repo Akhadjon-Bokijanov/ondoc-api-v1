@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\FacturaProduct;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-
-class UserController extends Controller
+class FacturaProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,6 @@ class UserController extends Controller
     public function index()
     {
         //
-        return User::all();
     }
 
     /**
@@ -28,41 +25,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //create a user
-//        var_dump($request->all());
-//        die();
-        $data = $request->all();
-        $data["password"] = Hash::make($data["password"]);
-        $data["auth_key"] = md5($data["tin"].$data["fio"]);
-        return User::create($data);
-
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //
-        try {
-            $user = User::find($id);
-            $a = $user->companies;
-            return $user;
-
-        }catch (\Exception $exception){
-            return $exception->getMessage();
-        }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -73,7 +52,6 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

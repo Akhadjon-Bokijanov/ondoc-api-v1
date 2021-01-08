@@ -15,9 +15,9 @@ class CreateFacturasTable extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->index();
 
-            $table->string('facturaId')->unique();
+            $table->string('facturaId')->unique()->index();
             $table->integer('version')->default(0);
             $table->boolean('singleSidedType')->default(false);
             $table->string('facturaNo', 1000);
