@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\CompanyController;
 use \App\Http\Controllers\UserController;
 use \App\Models\User;
-use \App\Models\Factura;
-
+use \App\Http\Controllers\FacturaController;
+use \App\Http\Controllers\CompanyUserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,44 +26,34 @@ Route::prefix('v1')->group(function (){
     //body
     //      body data
 
-    Route::group(["middleware"=>"auth"], function (){
+    //Route::group(["middleware"=>"auth:api,companies"], function (){
 
-        Route::apiResource('facturas', Factura::class);
+        Route::apiResource('company-user', CompanyUserController::class);
+
+        //these are basic CRUD factura actions
+        Route::apiResource('facturas', FacturaController::class);
+        //these are for extra factura actions
+        Route::get('facturas/get-pdf/{facturaId}', '\App\Http\Controllers\FacturaController@generatePdf');
+
 
         Route::apiResource('companies', CompanyController::class);
 
         Route::apiResource('users', UserController::class);
 
-        Route::get('/me', function (Request $request) {
-            return auth()->user();
+        Route::get('/men', function (Request $request) {
+
+            if(auth()->user()){
+                return auth()->user();
+            }
+            else if (auth()->guard('companies')){
+                return auth()->guard('companies')->user();
+            }
         });
-    });
+//    });
 
-    Route::post('new-user', function (Request $request){
-        try {
-            $data = $request->all();
-            $data["password"] = Hash::make($data["password"]);
-            $data["auth_key"] = md5($data["tin"].$data["fio"]);
+    Route::post('company-login', '\App\Http\Controllers\CompanyController@login');
 
-            $user = User::create($data);
-            return $user;
-        }catch (Exception $exception){
-            return $exception->getMessage();
-        }
-    });
-
-    Route::post('/login', function (Request $request){
-        $credentials = request()->only(['tin', 'password']);
-        $token = auth()->attempt($credentials);
-
-        return [
-            "token"=>$token,
-            "user"=>auth()->user()
-        ];
-    });
-
-
-
+    Route::post('user-login', '\App\Http\Controllers\UserController@login');
 
 });
 

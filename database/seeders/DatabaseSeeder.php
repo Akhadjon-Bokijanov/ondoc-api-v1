@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Company;
 use App\Models\Factura;
+use App\Models\FacturaProduct;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,10 +16,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         //\App\Models\User::factory(1000)->create();
+         \App\Models\User::factory(10)->create();
 
-        Company::factory(3000)->create();
+        Company::factory(10)->create();
 
-         //Factura::factory(100)->create();
+        Factura::factory(100)->create();
+
+        FacturaProduct::factory(500)->create();
     }
 }

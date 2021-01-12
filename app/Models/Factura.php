@@ -10,11 +10,15 @@ class Factura extends Model
     use HasFactory;
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'sellerTin', 'tin');
+    }
+
+    public function company(){
+        return $this->belongsTo(Company::class, 'sellerTin', 'tin');
     }
 
     public function facturaProducts(){
-        return $this->hasMany(FacturaProduct::class);
+        return $this->hasMany(FacturaProduct::class,'facturaProductId', 'facturaProductId');
     }
 
 }

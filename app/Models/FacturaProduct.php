@@ -10,6 +10,6 @@ class FacturaProduct extends Model
     use HasFactory;
 
     public function factura(){
-        $this->belongsTo(Factura::class);
+        $this->belongsTo(Factura::class, 'facturaProductId', 'facturaProductId');
     }
 }

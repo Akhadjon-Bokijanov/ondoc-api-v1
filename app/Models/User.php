@@ -54,8 +54,12 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Company::class)->withPivot('isActive', 'roleId');
     }
 
-    public function facturas(){
-        return $this->hasMany(Factura::class);
+    public function sentFacturas(){
+        return $this->hasMany(Factura::class, 'tin', 'sellerTin');
+    }
+
+    public function receivedFacturas(){
+        return $this->hasMany(Factura::class, 'tin', 'buyerTin');
     }
 
     public function getJWTIdentifier()

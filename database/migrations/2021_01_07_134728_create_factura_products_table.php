@@ -16,8 +16,6 @@ class CreateFacturaProductsTable extends Migration
         Schema::create('factura_products', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('factura_id')->index();
-
             $table->string('facturaProductId')->index();
             $table->integer('ordNo');
             $table->text('committentName');

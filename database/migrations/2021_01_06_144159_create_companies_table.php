@@ -36,6 +36,8 @@ class CreateCompaniesTable extends Migration
             $table->boolean('isOnline')->default(1);
             $table->integer('countLogin')->default(0);
             $table->dateTime('lastLoginAt')->nullable();
+            $table->string("password", 1000);
+            $table->string('auth_key', 1000)->nullable();
             $table->longText('afertaText')->nullable();
             $table->timestamps();
         });

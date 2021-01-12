@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CompanyFactory extends Factory
 {
@@ -43,6 +45,8 @@ class CompanyFactory extends Factory
             "countLogin"=>$this->faker->numberBetween(1, 10000),
             "lastLoginAt"=>$this->faker->dateTime,
             "afertaText"=>$this->faker->text,
+            "password"=>Hash::make("987654321"),
+            "auth_key"=>Str::random(20),
         ];
     }
 }

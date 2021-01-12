@@ -15,7 +15,6 @@ class CreateFacturasTable extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->index();
 
             $table->string('facturaId')->unique()->index();
             $table->integer('version')->default(0);
@@ -25,7 +24,7 @@ class CreateFacturasTable extends Migration
             $table->string('oldFacturaId')->nullable();
             $table->string('oldFacturaNo')->nullable();
             $table->dateTime('oldFacturaDate')->nullable();
-            $table->string('facturaProductId');
+            $table->string('facturaProductId')->index();
             $table->text('notes')->nullable();
             $table->integer('facturaType');
             $table->integer('currentStateid');
@@ -50,8 +49,8 @@ class CreateFacturasTable extends Migration
             $table->string("itemReleaseTin")->nullable();
             $table->string('itemReleasePinf1')->nullable();
 
-            $table->integer('sellerTin');
-            $table->integer('buyerTin')->nullable();
+            $table->integer('sellerTin')->index();
+            $table->integer('buyerTin')->nullable()->index();
 
             $table->string('sellerAccount', 1000)->nullable();
             $table->string('sellerBankId', 10)->nullable();

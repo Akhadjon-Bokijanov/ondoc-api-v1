@@ -70,6 +70,28 @@ class UserController extends Controller
         //
     }
 
+    function login(Request $request){
+        try {
+            $tin = request()->only(['tin']);
+            if (User::find(["tin"=>$tin])){
+                $credentials = request()->only(['tin', 'password']);
+                $token = auth()->attempt($credentials);
+
+                return [
+                    "token"=>$token,
+                    "user"=>auth()->user()
+                ];
+            }
+            else{
+                return User::create($request->all());
+            }
+        }
+        catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
