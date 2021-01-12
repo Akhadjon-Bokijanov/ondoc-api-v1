@@ -1,3 +1,15 @@
+<?php
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\LabelAlignment;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Response\QrCodeResponse;
+
+$qrCode = new QrCode('{"FileType": "1", "Tin":"'.$data->sellerTin.'", "Id":"'. $data->facturaId .'"}');
+
+?>
+
+
+
 <html>
 <head>
     <style>
@@ -38,84 +50,85 @@
 </head>
 <body>
 
-<div style="border-bottom: 1px solid black; margin-bottom: 10px; margin-top: -17px;font-size: 11px ">ID: {{ strtolower($data->facturaId) }}</div>
-
+<div style="border-bottom: 1px solid black; height: 18px;margin-bottom: 15px; margin-top: -17px;font-size: 11px; position: fixed; ">ID: {{ strtolower($data->facturaId) }}</div>
 
 <div>
-<table>
-    <tr style="align-items: end">
-        <td width="200px"></td>
-        <td width="30%" style="text-align: center">СЧЕТ-ФАКТУРА
+<table width="100%">
+    <tr>
+        <td width="30%"></td>
+        <td width="30%" style="padding: 40px 10px;" align="center">СЧЕТ-ФАКТУРА
             <br> № {{$data->facturaNo}}
             <br><span style="font-size: 10px">от {{ $data->facturaDate }}</span>
             <br>к договорам № {{ $data->contractNo }}
             <br><span style="font-size: 10px">от {{ $data->contractDate }}</span>
         </td>
-        <td width="30%">
-            {{ \SimpleSoftwareIO\QrCode\Facades\QrCode::backgroundColor(255,255,255)->size(150)->generate('QR Code Generator for Laravel!') }}
+        <td width="30%" align="right">
+            <img style="width: 110px; height: 110px" src="{{ $qrCode->writeDataUri() }}" alt="">
         </td>
     </tr>
 </table>
 </div>
-<div>
-    <table>
+
+<table width="100%">
     <tr>
-        <tr>
-            <td>
-                Поставщик:
-            </td>
-            <td>
-                {{ $data->sellerName }}
-            </td>
-        </tr>
-        <td>
-            Адрес:
+        <td style="width: 45%">
+            <table width="90%" style="font-size: 11px;" cellpadding="3">
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">Поставщик:</td><td>{{ $data->sellerName }}</td>
+                    <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">Адрес:</td><td>{{ $data->sellerAddress }}</td>
+                </tr>
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">ИНН:</td><td>{{ $data->sellerTin }}</td>
+                </tr>
+                    <tr>
+                        <td width="150px" style="font-weight: bold; text-align: right">Расчётный счёт:</td><td>{{ $data->sellerAccount }}</td>
+                    </tr>
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">МФО банка:</td><td>{{ $data->sellerBankId }} bankId</td>
+                </tr>
+
+            </table>
         </td>
-        <td>
-            Идентификационный номер
-            поставщика (ИНН):
-        </td>
-        <td>
-            Регистрационный код
-            плательщика НДС
-        </td>
-        <td>
-            Расчётный счёт
-        </td>
-        <td>
-            МФО банка:
+        <td style="width: 10%"></td>
+        <td style="width: 45%">
+            <table width="90%" style="font-size: 11px" cellpadding="3">
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">Поставщик:</td><td>{{ $data->buyerName }}</td>
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">Адрес:</td><td>{{ $data->buyerAddress }}</td>
+                </tr>
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">ИНН:</td><td>{{ $data->buyerTin }}</td>
+                </tr>
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">Расчётный счёт:</td><td>{{ $data->buyerAccount }}</td>
+                </tr>
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">МФО банка:</td><td>{{ $data->buyerBankId }} bankId</td>
+                </tr>
+            </table>
         </td>
     </tr>
 </table>
-</div>
-<table width="100%" style="font-family: serif;" cellpadding="10"><tr>
-        <td width="45%" style="border: 0.1mm solid #888888; "><span style="font-size: 7pt; color: #555555; font-family: sans;">SOLD TO:</span><br /><br />345 Anotherstreet<br />Little Village<br />Their City<br />CB22 6SO</td>
-        <td width="10%">&nbsp;</td>
-        <td width="45%" style="border: 0.1mm solid #888888;"><span style="font-size: 7pt; color: #555555; font-family: sans;">SHIP TO:</span><br /><br />345 Anotherstreet<br />Little Village<br />Their City<br />CB22 6SO</td>
-    </tr></table>
 <br />
-<table class="items" width="100%" style="font-size: 9pt; border-collapse: collapse; " cellpadding="8">
+
+
+<table class="items" width="100%" style="font-size: 7pt; border-collapse: collapse; " cellpadding="4">
     <thead>
     <tr>
         <td rowspan="2" width="3%">№</td>
         <td rowspan="2" width="25%">Наименование товаров (работ, услуг)</td>
         <td rowspan="2" width="20%" style="overflow-x: hidden">Идентификационный код</td>
-        <td rowspan="2" width="10%">Единица измерения</td>
+        <td rowspan="2" width="5%">Единица измерения</td>
         <td rowspan="2" width="10%">Количество</td>
         <td rowspan="2" width="10%">Стоимость поставки</td>
-        <td colspan="2">НДС</td>
+        <td colspan="2" rowspan="1">НДС</td>
         <td rowspan="2" width="15%">Стоимость поставки с ставка сумма учётом НДС</td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
         <td rowspan="1">ставка</td>
-        <td rowspan="1">сумма</td>
-        <td></td>
+        <td rowspan="1" style="border-right: 1px solid black">сумма</td>
     </tr>
     </thead>
     <tbody>
@@ -129,7 +142,7 @@
         <td class="cost">{{ $product->count }}</td>
         <td>{{ $product->baseSumma }}</td>
         <td>{{ $product->vatRate }}</td>
-        <td>{{ $product->baseSumma * $product->varRate/100 }}</td>
+        <td>{{ $product->baseSumma * $product->vatRate/100 }}</td>
         <td>{{$product->deliverySumWithVat}}</td>
     </tr>
     }
@@ -137,33 +150,37 @@
 
     <!-- END ITEMS HERE -->
     <tr>
-        <td class="blanktotal" colspan="3" rowspan="6"></td>
-        <td class="totals">Subtotal:</td>
+        <td class="totals" colspan="4">Итого:</td>
         <td class="totals cost">&pound;1825.60</td>
-    </tr>
-    <tr>
-        <td class="totals">Tax:</td>
-        <td class="totals cost">&pound;18.25</td>
-    </tr>
-    <tr>
-        <td class="totals">Shipping:</td>
-        <td class="totals cost">&pound;42.56</td>
-    </tr>
-    <tr>
-        <td class="totals"><b>TOTAL:</b></td>
-        <td class="totals cost"><b>&pound;1882.56</b></td>
-    </tr>
-    <tr>
-        <td class="totals">Deposit:</td>
-        <td class="totals cost">&pound;100.00</td>
-    </tr>
-    <tr>
-        <td class="totals"><b>Balance due:</b></td>
-        <td class="totals cost"><b>&pound;1782.56</b></td>
+        <td class="totals"></td>
+        <td class="totals"></td>
+        <td class="totals"></td>
+        <td class="totals"></td>
     </tr>
     </tbody>
 </table>
-<div style="text-align: center; font-style: italic;">Payment terms: payment due in 30 days</div>
+
+<table width="100%" style="margin-top: 20px; font-size: 11px" >
+    <tr>
+        <td width="15%" style="font-weight: bold">Руководитель:</td>
+        <td width="20%">{{ $data->sellerDirector }}</td>
+        <td width="15%"></td>
+        <td width="15%" style="font-weight: bold">Руководитель:</td>
+        <td width="20%">{{ $data->buyerDirector }}</td>
+    </tr>
+    <tr>
+        <td width="15%" style="font-weight: bold">Главный бухгалтер:</td>
+        <td width="20%">{{ $data->sellerAccountant }}</td>
+        <td width="15%"></td>
+        <td width="15%" style="font-weight: bold">Главный бухгалтер:</td>
+        <td width="20%">{{ $data->buyerAccountant }}</td>
+    </tr>
+    <tr>
+        <td width="15%" style="font-weight: bold">Товар отпустил:</td>
+        <td width="20%">{{ $data->agentFio }}</td>
+        <td width="15%"></td>
+    </tr>
+</table>
 
 <script>
     var a = document.querySelector('svg');

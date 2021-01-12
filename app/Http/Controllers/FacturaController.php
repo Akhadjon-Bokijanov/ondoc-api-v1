@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Factura;
 //use Barryvdh\DomPDF\PDF;
+use App\Models\FacturaProduct;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -45,7 +46,7 @@ class FacturaController extends Controller
     {
         //
         $factura = Factura::find($id);
-        $factura->facturaProducts;
+        $factura->facturaProducts->orderBy(["ordNo"=>"desc"]);
         return $factura;
 
     }
@@ -56,7 +57,7 @@ class FacturaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Factura $id)
     {
         //
     }
@@ -66,19 +67,18 @@ class FacturaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Factura $factura)
     {
-        //
+        //delete factura and factura products
+        FacturaProduct::destroy(['facturaProductId'=>$factura->facturaProductid]);
+        return $factura->delete();
     }
 
 
     //Generating Factura PDF file
-
     public function generatePdf($id){
 
-//        var_dump($id);
-//        die();
-        $data = Factura::find(1);
+        $data = Factura::find($id);
         $data->productFacturas;
         //return view('pdf.factura_template', ['data'=>$data]);
 
@@ -92,7 +92,7 @@ class FacturaController extends Controller
 
         $pdf->setOptions(['isPhpEnabled'=>true]);
 
-        return $pdf->stream('factura.pdf');
+        return $pdf->stream('factura-'.$data->facturaId.'.pdf');
     }
 
 }

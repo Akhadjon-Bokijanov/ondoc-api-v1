@@ -33,14 +33,14 @@ Route::prefix('v1')->group(function (){
         //these are basic CRUD factura actions
         Route::apiResource('facturas', FacturaController::class);
         //these are for extra factura actions
-        Route::get('facturas/get-pdf/{facturaId}', '\App\Http\Controllers\FacturaController@generatePdf');
+        Route::get('facturas/get-pdf/{facturaId}', '\App\Http\Controllers\FacturaController@generatePdf')->name('facturas.get-pdf');
 
 
         Route::apiResource('companies', CompanyController::class);
 
         Route::apiResource('users', UserController::class);
 
-        Route::get('/men', function (Request $request) {
+        Route::get('/me', function (Request $request) {
 
             if(auth()->user()){
                 return auth()->user();
@@ -51,9 +51,9 @@ Route::prefix('v1')->group(function (){
         });
 //    });
 
-    Route::post('company-login', '\App\Http\Controllers\CompanyController@login');
+    Route::post('company-login', '\App\Http\Controllers\CompanyController@login')->name('companies.login');
 
-    Route::post('user-login', '\App\Http\Controllers\UserController@login');
+    Route::post('user-login', '\App\Http\Controllers\UserController@login')->name('users.login');
 
 });
 
