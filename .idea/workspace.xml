@@ -5,25 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="377e62b5-87da-4e96-b94f-1b65c4487c07" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/EmpowermentController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/EmpowermentProductController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Empowerment.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/EmpowermentProduct.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/EmpowermentFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/EmpowermentProductFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_12_072731_create_empowerments_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_12_075530_create_empowerment_products_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeders/EmpowermentProductSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeders/EmpowermentSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OnDoc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OnDoc.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pdf/factura_template.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pdf/factura_template.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +185,8 @@
       <workItem from="1610167640093" duration="22594000" />
       <workItem from="1610340976810" duration="17425000" />
       <workItem from="1610370982327" duration="2964000" />
-      <workItem from="1610426260525" duration="14633000" />
+      <workItem from="1610426260525" duration="15255000" />
+      <workItem from="1610513613782" duration="1631000" />
     </task>
     <servers />
   </component>
