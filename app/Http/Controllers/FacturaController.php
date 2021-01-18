@@ -46,7 +46,7 @@ class FacturaController extends Controller
     {
         //
         $factura = Factura::find($id);
-        $factura->facturaProducts->orderBy(["ordNo"=>"desc"]);
+        $factura->facturaProducts;//->orderBy("ordNo", "DISC");
         return $factura;
 
     }
