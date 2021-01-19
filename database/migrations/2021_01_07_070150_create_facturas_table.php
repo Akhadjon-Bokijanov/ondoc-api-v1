@@ -27,7 +27,7 @@ class CreateFacturasTable extends Migration
             $table->string('facturaProductId')->index();
             $table->text('notes')->nullable();
             $table->integer('facturaType');
-            $table->integer('currentStateid');
+            $table->integer('currentStateid')->default(\App\Http\Controllers\FacturaController::STATE_SAVED);
             $table->string('lotId')->nullable();
             $table->integer('inCallBack')->default(0);
 
@@ -64,6 +64,7 @@ class CreateFacturasTable extends Migration
             $table->text('sellerAccountant')->nullable();
             $table->string('sellerVatRegCode', 15)->nullable();
             $table->text('sellerBranchName')->nullable();
+            $table->text("sellerMfo")->nullable();
             $table->string('sellerBranchCode', 15)->nullable();
 
             $table->string('buyerAccount', 1000)->nullable();
@@ -76,6 +77,7 @@ class CreateFacturasTable extends Migration
             $table->string('buyerDistrictId', 20)->nullable();
             $table->text('buyerDirector')->nullable();
             $table->text('buyerAccountant')->nullable();
+            $table->text('buyerMfo')->nullable();
             $table->string('buyerVatRegCode', 15)->nullable();
             $table->text('buyerBranchName')->nullable();
             $table->string('buyerBranchCode', 15)->nullable();

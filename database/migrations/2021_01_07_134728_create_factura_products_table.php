@@ -18,8 +18,8 @@ class CreateFacturaProductsTable extends Migration
 
             $table->string('facturaProductId')->index();
             $table->integer('ordNo');
-            $table->text('committentName');
-            $table->string('committentTin', 10);
+            $table->text('committentName')->nullable();
+            $table->string('committentTin', 10)->nullable();
             $table->string('vatRegCode', 15)->nullable();
             $table->text('name');
             $table->string('catalogCode');
@@ -37,7 +37,7 @@ class CreateFacturaProductsTable extends Migration
             $table->decimal('deliverySum', 15, 2);
             $table->decimal('vatRate', 15,2);
             $table->decimal('deliverySumWithVat', 15,2);
-            $table->boolean('withoutVat');
+            $table->boolean('withoutVat')->default(false);
 
             $table->timestamps();
         });

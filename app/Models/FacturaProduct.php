@@ -10,6 +10,10 @@ class FacturaProduct extends Model
     use HasFactory;
 
     public function factura(){
-        $this->belongsTo(Factura::class, 'facturaProductId', 'facturaProductId');
+        return $this->belongsTo(Factura::class, 'facturaProductId', 'facturaProductId')->orderBy('ordNo', 'asc');
+    }
+
+    public function measure(){
+        return $this->belongsTo(Measure::class, "measureId");
     }
 }

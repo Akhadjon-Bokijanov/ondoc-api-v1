@@ -18,10 +18,10 @@ class DatabaseSeeder extends Seeder
     {
          \App\Models\User::factory(10)->create();
 
-        Company::factory(10)->create();
+        //Company::factory(10)->create();
 
-        Factura::factory(100)->create();
+        //Factura::factory(100)->create();
 
-        FacturaProduct::factory(500)->create();
+        //FacturaProduct::factory(500)->create();
     }
 }

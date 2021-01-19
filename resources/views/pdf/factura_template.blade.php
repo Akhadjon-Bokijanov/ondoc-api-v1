@@ -138,7 +138,7 @@ $qrCode = new QrCode('{"FileType": "1", "Tin":"'.$data->sellerTin.'", "Id":"'. $
         <td align="center">{{$product->ordNo}}</td>
         <td align="center">{{ $product->name }}</td>
         <td>{{ $product->catalogCode }} - {{ $product->catalogName }}</td>
-        <td class="cost">{{ $product->measureId }}</td>
+        <td class="cost">{{ $product->measure->name }}</td>
         <td class="cost">{{ $product->count }}</td>
         <td>{{ $product->baseSumma }}</td>
         <td>{{ $product->vatRate }}</td>

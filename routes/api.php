@@ -7,6 +7,7 @@ use \App\Http\Controllers\UserController;
 use \App\Models\User;
 use \App\Http\Controllers\FacturaController;
 use \App\Http\Controllers\CompanyUserController;
+use \App\Http\Controllers\FacturaProductController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,6 +36,7 @@ Route::prefix('v1')->group(function (){
         //these are for extra factura actions
         Route::get('facturas/get-pdf/{facturaId}', '\App\Http\Controllers\FacturaController@generatePdf')->name('facturas.get-pdf');
 
+        Route::apiResource('factura-products', FacturaProductController::class);
 
         Route::apiResource('companies', CompanyController::class);
 

@@ -33,9 +33,11 @@ class FacturaProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(FacturaProduct $facturaProduct)
     {
         //
+        $facturaProduct->measure;
+        return $facturaProduct;
     }
 
     /**
