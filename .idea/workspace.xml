@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="377e62b5-87da-4e96-b94f-1b65c4487c07" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/MeasureController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Measure.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/MeasureFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_19_091635_create_measures_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/MeasureSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,6 +197,7 @@
       <workItem from="1610779639404" duration="6116000" />
       <workItem from="1610960506698" duration="3926000" />
       <workItem from="1610971863692" duration="3094000" />
+      <workItem from="1611031651415" duration="6542000" />
     </task>
     <servers />
   </component>
