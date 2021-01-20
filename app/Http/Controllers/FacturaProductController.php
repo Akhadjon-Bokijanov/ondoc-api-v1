@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\FacturaProduct;
+use App\Helper\ExcelReader;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Input;
+
 
 class FacturaProductController extends Controller
 {
@@ -26,6 +30,16 @@ class FacturaProductController extends Controller
     public function store(Request $request)
     {
         //
+        Excel::load(Input::file('file'), function ($reader) {
+            $data=[];
+
+            $reader->each(function($sheet) {
+                foreach ($sheet->toArray() as $row) {
+                    $data[]=$row;
+                }
+            });
+            return $data;
+        });
     }
 
     /**
@@ -59,5 +73,28 @@ class FacturaProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function importExcel(Request $request)
+  {
+        $path = $request->file('file')->store('/uploads', 'public');
+        $real_path = public_path("storage/{$path}");
+        $rows = ExcelReader::ReadAllExcelRows($real_path);
+
+        $res_data=[];
+        $start_row_index = 3;
+        $ord_no=1;
+        foreach ($rows as $key=>$row){
+            if($key >= $start_row_index){
+                $new_row = [];
+                foreach ($row as $cell){
+                    $new_row[]=["value"=>$cell];
+                }
+                $res_data[]=$new_row;
+            }
+        }
+
+        return ["excel"=>$res_data];
     }
 }

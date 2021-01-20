@@ -37,8 +37,10 @@ Route::prefix('v1')->group(function (){
         Route::get('facturas/get-pdf/{facturaId}', '\App\Http\Controllers\FacturaController@generatePdf')->name('facturas.get-pdf');
 
         Route::apiResource('factura-products', FacturaProductController::class);
+        Route::post('factura-products/read-excel', 'App\Http\Controllers\FacturaProductController@importExcel')->name('factura-products-import');
 
         Route::apiResource('companies', CompanyController::class);
+        Route::get('companies/tin/{tin}', '\App\Http\Controllers\CompanyController@getByTin')->name('companies.get-by-tin');
 
         Route::apiResource('users', UserController::class);
 

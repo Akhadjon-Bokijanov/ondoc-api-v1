@@ -59,6 +59,11 @@ class CompanyController extends Controller
         return $company;
     }
 
+    public function getByTin($tin){
+        $compnany = Company::where('tin', $tin)->first();
+        return $compnany;
+    }
+
     public function login(Request $request){
         try {
             $data=$request->all();

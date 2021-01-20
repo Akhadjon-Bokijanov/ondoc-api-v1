@@ -16,20 +16,7 @@ class FacturaController extends Controller
     //FACTURA CURRENT STATES
     const STATE_SAVED = 1;
 
-    //FACTURA PRODUCT INDEXES IN TABLE
-    const ORD_NO = 0;
-    const PRODUCT_NAME = 1;
-    const CATALOGE_CODE = 2;
-    const BAR_CODE = 3;
-    const MEASURE = 4;
-    const AMOUNT = 5;
-    const PRICE = 6;
-    const EXCISE_RATE = 7;
-    const EXCISE_AMOUNT = 8;
-    const DELIVERY_PRICE = 9;
-    const VAT_RATE= 10;
-    const VAT_AMOUNT = 11;
-    const DELIVERY_SUM_WITH_VAT_EXCISE = 12;
+
 
 
     /**
@@ -72,21 +59,21 @@ class FacturaController extends Controller
             if($product){
                 $fProduct = new FacturaProduct();
                 $fProduct->facturaProductId = $factura["facturaProductId"];
-                $fProduct->ordNo = $product[self::ORD_NO]["value"];
-                $fProduct->name = $product[self::PRODUCT_NAME]["value"];
-                $fProduct->catalogCode = $product[self::CATALOGE_CODE]["value"];
+                $fProduct->ordNo = $product[FacturaProduct::ORD_NO]["value"];
+                $fProduct->name = $product[FacturaProduct::PRODUCT_NAME]["value"];
+                $fProduct->catalogCode = $product[FacturaProduct::CATALOGE_CODE]["value"];
                 $fProduct->catalogName = "TO BE INSERTED!";
-                $fProduct->barCode = $product[self::BAR_CODE]["value"];
-                $fProduct->measureId = $product[self::MEASURE]["value"];
-                $fProduct->count = $product[self::AMOUNT]["value"];
-                $fProduct->baseSumma = $product[self::PRICE]["value"];
-                $fProduct->exciseRate = $product[self::EXCISE_RATE]["value"];
-                $fProduct->exciseSum = $product[self::EXCISE_AMOUNT]["value"];
-                $fProduct->deliverySum = $product[self::DELIVERY_PRICE]["value"];
-                $fProduct->vatRate = $product[self::VAT_RATE]["value"];
-                $fProduct->deliverySumWithVat = $product[self::PRICE]["value"] + $product[self::VAT_RATE]["value"];
-                $fProduct->summa = $product[self::DELIVERY_SUM_WITH_VAT_EXCISE]["value"];
-                $fProduct->withoutVat = $product[self::VAT_RATE]["value"] ? true : false;
+                $fProduct->barCode = $product[FacturaProduct::BAR_CODE]["value"];
+                $fProduct->measureId = $product[FacturaProduct::MEASURE]["value"];
+                $fProduct->count = $product[FacturaProduct::AMOUNT]["value"];
+                $fProduct->baseSumma = $product[FacturaProduct::PRICE]["value"];
+                $fProduct->exciseRate = $product[FacturaProduct::EXCISE_RATE]["value"];
+                $fProduct->exciseSum = $product[FacturaProduct::EXCISE_AMOUNT]["value"];
+                $fProduct->deliverySum = $product[FacturaProduct::DELIVERY_PRICE]["value"];
+                $fProduct->vatRate = $product[FacturaProduct::VAT_RATE]["value"];
+                $fProduct->deliverySumWithVat = $product[FacturaProduct::PRICE]["value"] + $product[FacturaProduct::VAT_RATE]["value"];
+                $fProduct->summa = $product[FacturaProduct::DELIVERY_SUM_WITH_VAT_EXCISE]["value"];
+                $fProduct->withoutVat = $product[FacturaProduct::VAT_RATE]["value"] ? true : false;
                 $fProduct->save();
             }
         }
