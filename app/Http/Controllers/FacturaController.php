@@ -44,43 +44,50 @@ class FacturaController extends Controller
     {
         //create factura
 
-        $data = $request->all();
-        //if ()
-        $factura = $data["factura"];
-        $factura["facturaId"] =Str::random(40);
-        $factura["facturaProductId"] =Str::random(40);
-        //$factura["facturaDate"] = date('Y-m-d 00:00:00', strtotime($factura["facturaDate"]));
-        //$factura["contractDate"] = date('Y-m-d 00:00:00', strtotime($factura["contractDate"]));
-        //$factura["empowermentDateOfIssue"] = date('Y-m-d 00:00:00', strtotime($factura["empowermentDateOfIssue"]));
+        try {
+            $data = $request->all();
+            //if ()
+            $factura = $data["factura"];
+            $factura["facturaId"] =Str::random(40);
+            $factura["facturaProductId"] =Str::random(40);
+            $factura["facturaDate"] = date('Y-m-d 00:00:00', strtotime($factura["facturaDate"]));
+            $factura["contractDate"] = date('Y-m-d 00:00:00', strtotime($factura["contractDate"]));
+            $factura["empowermentDateOfIssue"] = date('Y-m-d 00:00:00', strtotime($factura["empowermentDateOfIssue"]));
 
-        $products = $data["products"];
-        array_shift($products);
-        foreach ($products as $product){
-            if($product){
-                $fProduct = new FacturaProduct();
-                $fProduct->facturaProductId = $factura["facturaProductId"];
-                $fProduct->ordNo = $product[FacturaProduct::ORD_NO]["value"];
-                $fProduct->name = $product[FacturaProduct::PRODUCT_NAME]["value"];
-                $fProduct->catalogCode = $product[FacturaProduct::CATALOGE_CODE]["value"];
-                $fProduct->catalogName = "TO BE INSERTED!";
-                $fProduct->barCode = $product[FacturaProduct::BAR_CODE]["value"];
-                $fProduct->measureId = $product[FacturaProduct::MEASURE]["value"];
-                $fProduct->count = $product[FacturaProduct::AMOUNT]["value"];
-                $fProduct->baseSumma = $product[FacturaProduct::PRICE]["value"];
-                $fProduct->exciseRate = $product[FacturaProduct::EXCISE_RATE]["value"];
-                $fProduct->exciseSum = $product[FacturaProduct::EXCISE_AMOUNT]["value"];
-                $fProduct->deliverySum = $product[FacturaProduct::DELIVERY_PRICE]["value"];
-                $fProduct->vatRate = $product[FacturaProduct::VAT_RATE]["value"];
-                $fProduct->deliverySumWithVat = $product[FacturaProduct::PRICE]["value"] + $product[FacturaProduct::VAT_RATE]["value"];
-                $fProduct->summa = $product[FacturaProduct::DELIVERY_SUM_WITH_VAT_EXCISE]["value"];
-                $fProduct->withoutVat = $product[FacturaProduct::VAT_RATE]["value"] ? true : false;
-                $fProduct->save();
+            Factura::create($factura);
+
+            $products = $data["products"];
+            array_shift($products);
+            foreach ($products as $product){
+                if($product){
+                    $fProduct = new FacturaProduct();
+                    $fProduct->facturaProductId = $factura["facturaProductId"];
+                    $fProduct->ordNo = $product[FacturaProduct::ORD_NO]["value"];
+                    $fProduct->name = $product[FacturaProduct::PRODUCT_NAME]["value"];
+                    $fProduct->catalogCode = $product[FacturaProduct::CATALOGE_CODE]["value"];
+                    $fProduct->catalogName = "TO BE INSERTED!";
+                    $fProduct->barCode = $product[FacturaProduct::BAR_CODE]["value"];
+                    $fProduct->measureId = $product[FacturaProduct::MEASURE]["value"];
+                    $fProduct->count = $product[FacturaProduct::AMOUNT]["value"];
+                    $fProduct->baseSumma = $product[FacturaProduct::PRICE]["value"];
+                    $fProduct->exciseRate = $product[FacturaProduct::EXCISE_RATE]["value"];
+                    $fProduct->exciseSum = $product[FacturaProduct::EXCISE_AMOUNT]["value"];
+                    $fProduct->deliverySum = $product[FacturaProduct::DELIVERY_PRICE]["value"];
+                    $fProduct->vatRate = $product[FacturaProduct::VAT_RATE]["value"];
+                    $fProduct->deliverySumWithVat = $product[FacturaProduct::PRICE]["value"] + $product[FacturaProduct::VAT_RATE]["value"];
+                    $fProduct->summa = $product[FacturaProduct::DELIVERY_SUM_WITH_VAT_EXCISE]["value"];
+                    $fProduct->withoutVat = $product[FacturaProduct::VAT_RATE]["value"] ? true : false;
+                    $fProduct->save();
+                }
             }
-        }
-        return $products;
-        //foreach ()
+            return $products;
+            //foreach ()
 
-        return Factura::create($factura);
+            return ["message"=>"success", "status"=>200];
+        } catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+
     }
 
     /**

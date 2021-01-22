@@ -38,8 +38,6 @@ class FacturaFactory extends Factory
           "currentStateid"=>$this->faker->numberBetween(1, 5),
           "lotId"=>$this->faker->numberBetween(1,10),
           "inCallBack"=>$this->faker->numberBetween(0,1),
-          "hasVat"=>$this->faker->numberBetween(0,1),
-          "hasExcise"=>$this->faker->numberBetween(0,1),
           "hasMarking"=>$this->faker->numberBetween(0,1),
           "hasMedical"=>$this->faker->numberBetween(0,1),
           "contractNo"=>$this->faker->numberBetween(300, 1000),

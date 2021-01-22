@@ -18,7 +18,7 @@ class CreateFacturasTable extends Migration
 
             $table->string('facturaId')->unique()->index();
             $table->integer('version')->default(0);
-            $table->boolean('singleSidedType')->default(false);
+            $table->integer('singleSidedType')->nullable();
             $table->string('facturaNo', 1000);
             $table->dateTime('facturaDate');
             $table->string('oldFacturaId')->nullable();
@@ -31,8 +31,6 @@ class CreateFacturasTable extends Migration
             $table->string('lotId')->nullable();
             $table->integer('inCallBack')->default(0);
 
-            $table->boolean('hasVat')->default(false);
-            $table->boolean('hasExcise')->default(false);
             $table->boolean('hasMarking')->default(false);
             $table->boolean('hasMedical')->default(false);
 
@@ -54,7 +52,7 @@ class CreateFacturasTable extends Migration
 
             $table->string('sellerAccount', 1000)->nullable();
             $table->string('sellerBankId', 10)->nullable();
-            $table->text('sellerName');
+            $table->text('sellerName')->nullable();
             $table->text('sellerAddress')->nullable();
             $table->string('sellerMobilePhone', 20)->nullable();
             $table->string('sellerWorkPhone', 20)->nullable();
