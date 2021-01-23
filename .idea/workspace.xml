@@ -5,11 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="377e62b5-87da-4e96-b94f-1b65c4487c07" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ActController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ActProductController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ContractPartController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ContractProductController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ContractProductsController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Act.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/ActProduct.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Contract.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/ContractPart.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/ContractProduct.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/ContractProducts.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/ActFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/ActProductFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/ContractFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/ContractPartFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/ContractProductFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_062624_create_contracts_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_064741_create_contract_products_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_064759_create_contract_parts_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_065705_create_acts_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_065722_create_act_products_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/ActProductSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/ActSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/ContractPartSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/ContractProductSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/ContractSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/FacturaFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/FacturaFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_06_144159_create_companies_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_06_144159_create_companies_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_07_070150_create_facturas_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_07_070150_create_facturas_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,6 +229,7 @@
       <workItem from="1611031651415" duration="19057000" />
       <workItem from="1611116739107" duration="16476000" />
       <workItem from="1611204766177" duration="6340000" />
+      <workItem from="1611378352364" duration="7673000" />
     </task>
     <servers />
   </component>
