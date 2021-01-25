@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use \App\Http\Controllers\FacturaController;
+use \App\Http\Controllers\Controller;
 
 class CreateFacturasTable extends Migration
 {
@@ -23,7 +23,7 @@ class CreateFacturasTable extends Migration
             $table->string('facturaNo', 1000);
             $table->dateTime('facturaDate');
             $table->integer('version')->default(1);
-            $table->integer('currentStateid')->default(FacturaController::STATE_SAVED);
+            $table->integer('status')->default(Controller::DOC_STATUS_SAVED);
             $table->string('contractNo', 1000);
             $table->dateTime('contractDate');
 

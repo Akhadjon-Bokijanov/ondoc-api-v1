@@ -24,16 +24,13 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'fio' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'email_verified_at' => now(),
+            'fullName' => $this->faker->name,
             'remember_token' => Str::random(10),
             'dateOfBirth'=> date('Y-m-d H:i:s', rand(12620500000,1262055681)),
             "gender"=>random_int(0, 1),
             "phone"=>random_int(800000000, 999999999),
             "lang"=>'uz',
             "tin"=>random_int(300000000, 999999999),
-            "roleId"=>random_int(0, 5),
             "auth_key"=>Str::random(20),
             "status"=>1,
             "password"=>Hash::make("123456789"),

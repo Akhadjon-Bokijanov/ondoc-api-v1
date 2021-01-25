@@ -25,11 +25,10 @@ class CompanyFactory extends Factory
     {
         return [
             "tin"=>$this->faker->unique()->numberBetween(200000000, 999999999),
-            "companyName" =>$this->faker->company,
+            "name" =>$this->faker->company,
             "address"=>$this->faker->address,
             "oked"=>$this->faker->numberBetween(123, 9999),
             "tariffId"=>$this->faker->numberBetween(1, 10),
-            "districtId"=>$this->faker->numberBetween(1, 100),
             "ns10Code"=>$this->faker->numberBetween(1000, 9999),
             "ns11Code"=>$this->faker->numberBetween(1000, 99999),
             "directorTin"=>$this->faker->numberBetween(200000000, 999999999),
@@ -41,10 +40,7 @@ class CompanyFactory extends Factory
             "status"=>1,
             "type"=>$this->faker->numberBetween(1, 15),
             "isAferta"=>$this->faker->numberBetween(0,1),
-            "isOnline"=>$this->faker->numberBetween(0,1),
-            "countLogin"=>$this->faker->numberBetween(1, 10000),
             "lastLoginAt"=>$this->faker->dateTime,
-            "afertaText"=>$this->faker->text,
             "password"=>Hash::make("987654321"),
             "auth_key"=>Str::random(20),
         ];

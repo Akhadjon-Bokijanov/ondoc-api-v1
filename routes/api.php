@@ -4,10 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\CompanyController;
 use \App\Http\Controllers\UserController;
-use \App\Models\User;
 use \App\Http\Controllers\FacturaController;
 use \App\Http\Controllers\CompanyUserController;
 use \App\Http\Controllers\FacturaProductController;
+use \App\Http\Controllers\CabinetController;
+use \App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,9 +28,11 @@ Route::prefix('v1')->group(function (){
     //body
     //      body data
 
-    //Route::group(["middleware"=>"auth:api,companies"], function (){
+    Route::group(["middleware"=>"auth:api,companies"], function (){
 
         Route::apiResource('company-user', CompanyUserController::class);
+
+        Route::apiResource('cabinet', CabinetController::class);
 
         //these are basic CRUD factura actions
         Route::apiResource('facturas', FacturaController::class);
@@ -53,11 +56,9 @@ Route::prefix('v1')->group(function (){
                 return auth()->guard('companies')->user();
             }
         });
-//    });
+    });
 
-    Route::post('company-login', '\App\Http\Controllers\CompanyController@login')->name('companies.login');
-
-    Route::post('user-login', '\App\Http\Controllers\UserController@login')->name('users.login');
+    Route::apiResource("login-with-password", LoginController::class);
 
 });
 

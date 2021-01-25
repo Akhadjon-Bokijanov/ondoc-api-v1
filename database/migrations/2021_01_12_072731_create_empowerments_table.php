@@ -65,6 +65,7 @@ class CreateEmpowermentsTable extends Migration
             $table->string('contractNo');
             $table->dateTime('contractDate');
 
+            $table->integer('status');
             $table->text('note')->nullable();
             $table->string('currentStateId')->default(1);
 

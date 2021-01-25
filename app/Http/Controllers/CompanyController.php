@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\LoginHelper;
 use Illuminate\Http\Request;
 use App\Models\Company;
 
@@ -64,26 +65,6 @@ class CompanyController extends Controller
         return $compnany;
     }
 
-    public function login(Request $request){
-        try {
-            $data=$request->all();
-
-            if(Company::find(['tin'=>$data["tin"]])){
-                $credentials = request()->only(['tin', 'password']);
-                $token = auth()->guard('companies')->attempt($credentials);
-
-                return [
-                    "token"=>$token,
-                    "company"=>auth()->guard('companies')->user()
-                ];
-            }
-            else{
-                return Company::create($data);
-            }
-        } catch (\Exception $exception){
-            return $exception->getMessage();
-        }
-    }
 
     /**
      * Remove the specified resource from storage.

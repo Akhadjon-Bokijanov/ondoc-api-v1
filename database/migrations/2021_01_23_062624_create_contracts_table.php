@@ -26,29 +26,29 @@ class CreateContractsTable extends Migration
             $table->text('contractPlace')->nullable();
             $table->integer('status')->default(1);
 
-            //SELLER AND BUYER || OWNER AND CLIENT
-            $table->integer('clientTin')->index();
-            $table->integer('buyerTin')->nullable()->index();
+            //SELLER AND BUYER || seller AND buyer
+            $table->integer('buyerTin')->index();
+            $table->integer('sellerTin')->nullable()->index();
 
-            $table->string('clientAccount', 1000)->nullable();
-            $table->string('clientName', 1000);
-            $table->text('clientAddress')->nullable();
-            $table->text('clientMobilePhone')->nullable();
-            $table->text('clientWorkPhone')->nullable();
-            $table->text('clientOked')->nullable();
-            $table->text('clientDirector')->nullable();
-            $table->integer('clientDirectorTin')->nullable();
-            $table->text('clientBranchName')->nullable();
-            $table->string('clientBranchCode', 15)->nullable();
+            $table->string('buyerAccount', 1000)->nullable();
+            $table->string('buyerName', 1000);
+            $table->text('buyerAddress')->nullable();
+            $table->text('buyerMobilePhone')->nullable();
+            $table->text('buyerWorkPhone')->nullable();
+            $table->text('buyerOked')->nullable();
+            $table->text('buyerDirector')->nullable();
+            $table->integer('buyerDirectorTin')->nullable();
+            $table->text('buyerBranchName')->nullable();
+            $table->string('buyerBranchCode', 15)->nullable();
 
-            $table->string('ownerAccount', 1000)->nullable();
-            $table->string('ownerName', 1000);
-            $table->text('ownerAddress')->nullable();
-            $table->text('ownerMobilePhone')->nullable();
-            $table->text('ownerWorkPhone')->nullable();
-            $table->text('ownerOked')->nullable();
-            $table->text('ownerDirector')->nullable();
-            $table->integer('ownerDirectorTin')->nullable();
+            $table->string('sellerAccount', 1000)->nullable();
+            $table->string('sellerName', 1000);
+            $table->text('sellerAddress')->nullable();
+            $table->text('sellerMobilePhone')->nullable();
+            $table->text('sellerWorkPhone')->nullable();
+            $table->text('sellerOked')->nullable();
+            $table->text('sellerDirector')->nullable();
+            $table->integer('sellerDirectorTin')->nullable();
 
 
 
