@@ -46,21 +46,18 @@ class CabinetController extends Controller
         //return $tab_index;
         $user = $this->user();
         $docs = [];
-        $query = "
-            SELECT facturas.facturaNo as docNo, buyerTin, buyerName, created_at, contractNo, 'factura' as docType, status FROM facturas WHERE buyerTin = ?
-            UNION
-            SELECT acts.actNo as docNo, created_at, buyerName, buyerTin, contractNo, 'act' as docType, status FROM acts WHERE buyerTin = ?
-            UNION
-            SELECT empowerments.empowermentNo as docNo, created_at, buyerName, buyerTin, contractNo, 'empowerment' as docType, status FROM empowerments WHERE buyerTin = ?
-            UNION
-            SELECT contracts.contractNo as docNo, created_at, buyerName, buyerTin, contractNo, 'contract' as docType, status FROM contracts WHERE buyerTin = ? ";
+
         if ($tab_index == self::RECEIVED_DOCS){
-            $docs = DB::select($query."
+            $docs = DB::select("SELECT id, facturas.facturaNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'factura' as docType, status FROM facturas WHERE buyerTin = ?
+            UNION
+            SELECT id, acts.actNo as docNo, created_at,  sellerName, sellerTin, buyerName, buyerTin, contractNo, 'act' as docType, status FROM acts WHERE buyerTin = ?
+            UNION
+            SELECT id, empowerments.empowermentNo as docNo, created_at,  sellerName, sellerTin, buyerName, buyerTin, contractNo, 'empowerment' as docType, status FROM empowerments WHERE buyerTin = ?
+            UNION
+            SELECT id, contracts.contractNo as docNo, created_at,  sellerName, sellerTin, buyerName, buyerTin, contractNo, 'contract' as docType, status FROM contracts WHERE buyerTin = ?
             ORDER BY created_at DESC
 
-            LIMIT 200
-
-        ", [$user->tin, $user->tin, $user->tin, $user->tin]);
+            LIMIT 200" , [$user->tin, $user->tin, $user->tin, $user->tin]);
         }
 
 

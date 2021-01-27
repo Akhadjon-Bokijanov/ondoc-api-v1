@@ -31,7 +31,7 @@ class CreateFacturaProductsTable extends Migration
             $table->decimal('baseSumma', 15, 2)->default(0);
             $table->decimal('profitRate', 5, 2)->default(0);
             $table->integer('count');
-            $table->decimal('summa', 15,2);
+            $table->decimal('summa', 20,2);
             $table->decimal('exciseRate', 15, 2)->default(0);
             $table->decimal('exciseSum', 15,2)->default(0);
             $table->decimal('deliverySum', 15, 2);

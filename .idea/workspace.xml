@@ -5,19 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="377e62b5-87da-4e96-b94f-1b65c4487c07" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Helper/LoginHelper.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/CabinetController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/LoginController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Helper/ActHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Helper/BaseHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Helper/ContractHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Helper/EmpowermentHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Helper/FacturaHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Helper/RoumingHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Helper/SoliqHelper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_26_095619_increase_decimal_for_factura_products.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OnDoc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OnDoc.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CompanyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CompanyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/CompanyFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/CompanyFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/FacturaFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/FacturaFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_07_070150_create_facturas_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_07_070150_create_facturas_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_12_072731_create_empowerments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_12_072731_create_empowerments_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_23_062624_create_contracts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_062624_create_contracts_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CabinetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CabinetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Factura.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Factura.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_07_134728_create_factura_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_07_134728_create_factura_products_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
@@ -156,6 +160,13 @@
       <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
       <path value="$PROJECT_DIR$/vendor/markbaker/matrix" />
       <path value="$PROJECT_DIR$/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/vendor/bacon/bacon-qr-code" />
+      <path value="$PROJECT_DIR$/vendor/endroid/qr-code" />
+      <path value="$PROJECT_DIR$/vendor/khanamiryan/qrcode-detector-decoder" />
+      <path value="$PROJECT_DIR$/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/vendor/symfony/property-info" />
+      <path value="$PROJECT_DIR$/vendor/dasprid/enum" />
     </include_path>
   </component>
   <component name="ProjectId" id="1mhBAPFNonpWSHUNNq8CMjmA2v3" />
@@ -216,7 +227,10 @@
       <workItem from="1611378352364" duration="10602000" />
       <workItem from="1611391516074" duration="8514000" />
       <workItem from="1611422377583" duration="8907000" />
-      <workItem from="1611548929760" duration="344000" />
+      <workItem from="1611548929760" duration="3479000" />
+      <workItem from="1611634014698" duration="20654000" />
+      <workItem from="1611721872679" duration="7373000" />
+      <workItem from="1611748374799" duration="3596000" />
     </task>
     <servers />
   </component>

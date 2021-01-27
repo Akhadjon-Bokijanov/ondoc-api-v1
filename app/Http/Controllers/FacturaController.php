@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\RoumingHelper;
 use App\Models\Factura;
 //use Barryvdh\DomPDF\PDF;
 use App\Models\FacturaProduct;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class FacturaController extends Controller
@@ -28,6 +30,8 @@ class FacturaController extends Controller
     {
         //
         //$facturas = auth()->user()->facturas;
+        return ["data"=>RoumingHelper::getNdsCode(596324885)];
+        return ["id"=>RoumingHelper::getFacturaID()];
         $facturas = Factura::all();
         return $facturas;
     }
@@ -48,8 +52,8 @@ class FacturaController extends Controller
             $data = $request->all();
             //if ()
             $factura = $data["factura"];
-            $factura["facturaId"] =Str::random(40);
-            $factura["facturaProductId"] =Str::random(40);
+            $factura["facturaId"] =RoumingHelper::getFacturaID();
+            $factura["facturaProductId"] =RoumingHelper::getFacturaID();
             $factura["facturaDate"] = date('Y-m-d 00:00:00', strtotime($factura["facturaDate"]));
             $factura["contractDate"] = date('Y-m-d 00:00:00', strtotime($factura["contractDate"]));
             $factura["empowermentDateOfIssue"] = date('Y-m-d 00:00:00', strtotime($factura["empowermentDateOfIssue"]));
@@ -57,29 +61,10 @@ class FacturaController extends Controller
             Factura::create($factura);
 
             $products = $data["products"];
-            array_shift($products);
-            foreach ($products as $product){
-                if($product){
-                    $fProduct = new FacturaProduct();
-                    $fProduct->facturaProductId = $factura["facturaProductId"];
-                    $fProduct->ordNo = $product[FacturaProduct::ORD_NO]["value"];
-                    $fProduct->name = $product[FacturaProduct::PRODUCT_NAME]["value"];
-                    $fProduct->catalogCode = $product[FacturaProduct::CATALOGE_CODE]["value"];
-                    $fProduct->catalogName = "TO BE INSERTED!";
-                    $fProduct->barCode = $product[FacturaProduct::BAR_CODE]["value"];
-                    $fProduct->measureId = $product[FacturaProduct::MEASURE]["value"];
-                    $fProduct->count = $product[FacturaProduct::AMOUNT]["value"];
-                    $fProduct->baseSumma = $product[FacturaProduct::PRICE]["value"];
-                    $fProduct->exciseRate = $product[FacturaProduct::EXCISE_RATE]["value"];
-                    $fProduct->exciseSum = $product[FacturaProduct::EXCISE_AMOUNT]["value"];
-                    $fProduct->deliverySum = $product[FacturaProduct::DELIVERY_PRICE]["value"];
-                    $fProduct->vatRate = $product[FacturaProduct::VAT_RATE]["value"];
-                    $fProduct->deliverySumWithVat = $product[FacturaProduct::PRICE]["value"] + $product[FacturaProduct::VAT_RATE]["value"];
-                    $fProduct->summa = $product[FacturaProduct::DELIVERY_SUM_WITH_VAT_EXCISE]["value"];
-                    $fProduct->withoutVat = $product[FacturaProduct::VAT_RATE]["value"] ? true : false;
-                    $fProduct->save();
-                }
-            }
+
+
+            $this->saveProductFacturas($products, $factura["facturaProductId"]);
+
             return $products;
             //foreach ()
 
@@ -109,9 +94,33 @@ class FacturaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Factura $id)
+    public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $fac = Factura::find($id);
+
+            $data = $request->all();
+            $factura = $data["factura"];
+            $factura["facturaId"] =Str::random(40);
+            $factura["facturaProductId"] =Str::random(40);
+            $factura["facturaDate"] = date('Y-m-d 00:00:00', strtotime($factura["facturaDate"]));
+            $factura["contractDate"] = date('Y-m-d 00:00:00', strtotime($factura["contractDate"]));
+            $factura["empowermentDateOfIssue"] = date('Y-m-d 00:00:00', strtotime($factura["empowermentDateOfIssue"]));
+
+            $fac->update($factura);
+        } catch (\Exception $exception){
+            DB::rollBack();
+            return $exception->getMessage();
+        }
+
+        try {
+            $this->saveProductFacturas($data["products"], $factura["facturaProductId"]);
+        } catch (\Exception $exception){
+            DB::rollBack();
+            return $exception->getMessage();
+        }
+        DB::commit();
     }
 
     /**
@@ -121,8 +130,6 @@ class FacturaController extends Controller
      */
     public function destroy(Factura $factura)
     {
-        //delete factura and factura products
-        FacturaProduct::destroy(['facturaProductId'=>$factura->facturaProductid]);
         return $factura->delete();
     }
 
@@ -144,6 +151,32 @@ class FacturaController extends Controller
         $pdf->setOptions(['isPhpEnabled'=>true]);
 
         return $pdf->stream('factura-'.$data->facturaId.'.pdf');
+    }
+
+    public function saveProductFacturas($products, $facturaProductId){
+        array_shift($products);
+        foreach ($products as $product){
+            if($product){
+                $fProduct = new FacturaProduct();
+                $fProduct->facturaProductId = $facturaProductId;
+                $fProduct->ordNo = $product[FacturaProduct::ORD_NO]["value"];
+                $fProduct->name = $product[FacturaProduct::PRODUCT_NAME]["value"];
+                $fProduct->catalogCode = $product[FacturaProduct::CATALOGE_CODE]["value"];
+                $fProduct->catalogName = "TO BE INSERTED!";
+                $fProduct->barCode = $product[FacturaProduct::BAR_CODE]["value"];
+                $fProduct->measureId = $product[FacturaProduct::MEASURE]["value"];
+                $fProduct->count = $product[FacturaProduct::AMOUNT]["value"];
+                $fProduct->baseSumma = $product[FacturaProduct::PRICE]["value"];
+                $fProduct->exciseRate = $product[FacturaProduct::EXCISE_RATE]["value"];
+                $fProduct->exciseSum = $product[FacturaProduct::EXCISE_AMOUNT]["value"];
+                $fProduct->deliverySum = $product[FacturaProduct::DELIVERY_PRICE]["value"];
+                $fProduct->vatRate = $product[FacturaProduct::VAT_RATE]["value"];
+                $fProduct->deliverySumWithVat = $product[FacturaProduct::PRICE]["value"] + $product[FacturaProduct::VAT_RATE]["value"];
+                $fProduct->summa = $product[FacturaProduct::DELIVERY_SUM_WITH_VAT_EXCISE]["value"];
+                $fProduct->withoutVat = $product[FacturaProduct::VAT_RATE]["value"] ? true : false;
+                $fProduct->save();
+            }
+        }
     }
 
 }
