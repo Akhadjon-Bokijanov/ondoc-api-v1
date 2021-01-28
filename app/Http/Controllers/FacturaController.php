@@ -30,8 +30,8 @@ class FacturaController extends Controller
     {
         //
         //$facturas = auth()->user()->facturas;
-        return ["data"=>RoumingHelper::getNdsCode(596324885)];
-        return ["id"=>RoumingHelper::getFacturaID()];
+//        return ["data"=>RoumingHelper::getNdsCode(596324885)];
+//        return ["id"=>RoumingHelper::getFacturaID()];
         $facturas = Factura::all();
         return $facturas;
     }
