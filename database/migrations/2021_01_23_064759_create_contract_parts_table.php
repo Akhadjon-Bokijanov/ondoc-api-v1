@@ -15,9 +15,7 @@ class CreateContractPartsTable extends Migration
     {
         Schema::create('contract_parts', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('contract_id')->index();
-
+            $table->string('contract_id', 30)->index();
             $table->integer('ordNo');
             $table->string('title');
             $table->text('body');

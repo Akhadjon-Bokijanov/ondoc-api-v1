@@ -44,7 +44,7 @@ class RoumingHelper extends BaseHelper
     }
 
 
-    public static function getFacturaID(){
+    public static function getDocID(){
         $opts = array(
             'http' => array(
                 'method' => "GET",

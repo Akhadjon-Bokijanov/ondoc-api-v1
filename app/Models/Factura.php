@@ -31,10 +31,6 @@ class Factura extends Model
             $factura->facturaProducts()->delete();
         });
 
-        static::updating(function ($factura){
-            $factura->facturaProducts()->delete();
-        });
-
     }
 
 }

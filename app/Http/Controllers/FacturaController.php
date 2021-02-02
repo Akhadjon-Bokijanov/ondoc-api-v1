@@ -28,11 +28,14 @@ class FacturaController extends Controller
      */
     public function index()
     {
+
         //
-        //$facturas = auth()->user()->facturas;
-//        return ["data"=>RoumingHelper::getNdsCode(596324885)];
-//        return ["id"=>RoumingHelper::getFacturaID()];
-        $facturas = Factura::all();
+
+        $facturas = Factura::where(function ($q){
+            $user=$this->user();
+            $q->where('sellerTin',$user->tin)
+                ->orWhere('buyerTin', $user->tin);
+        })->get();
         return $facturas;
     }
 
@@ -52,23 +55,20 @@ class FacturaController extends Controller
             $data = $request->all();
             //if ()
             $factura = $data["factura"];
-            $factura["facturaId"] =RoumingHelper::getFacturaID();
-            $factura["facturaProductId"] =RoumingHelper::getFacturaID();
+            $factura["facturaId"] =RoumingHelper::getDocID();
+            $factura["facturaProductId"] =RoumingHelper::getDocID();
             $factura["facturaDate"] = date('Y-m-d 00:00:00', strtotime($factura["facturaDate"]));
             $factura["contractDate"] = date('Y-m-d 00:00:00', strtotime($factura["contractDate"]));
             $factura["empowermentDateOfIssue"] = date('Y-m-d 00:00:00', strtotime($factura["empowermentDateOfIssue"]));
 
+            DB::beginTransaction();
             Factura::create($factura);
 
             $products = $data["products"];
 
-
             $this->saveProductFacturas($products, $factura["facturaProductId"]);
-
-            return $products;
-            //foreach ()
-
-            return ["message"=>"success", "status"=>200];
+            DB::commit();
+            return ["message"=>"success", "ok"=>true];
         } catch (\Exception $exception){
             return $exception->getMessage();
         }
@@ -102,8 +102,6 @@ class FacturaController extends Controller
 
             $data = $request->all();
             $factura = $data["factura"];
-            $factura["facturaId"] =Str::random(40);
-            $factura["facturaProductId"] =Str::random(40);
             $factura["facturaDate"] = date('Y-m-d 00:00:00', strtotime($factura["facturaDate"]));
             $factura["contractDate"] = date('Y-m-d 00:00:00', strtotime($factura["contractDate"]));
             $factura["empowermentDateOfIssue"] = date('Y-m-d 00:00:00', strtotime($factura["empowermentDateOfIssue"]));
@@ -149,11 +147,13 @@ class FacturaController extends Controller
                 ]);
 
         $pdf->setOptions(['isPhpEnabled'=>true]);
-
         return $pdf->stream('factura-'.$data->facturaId.'.pdf');
     }
 
     public function saveProductFacturas($products, $facturaProductId){
+
+        DB::table('factura_products')->where('facturaProductId', $facturaProductId)->delete();
+
         array_shift($products);
         foreach ($products as $product){
             if($product){

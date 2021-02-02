@@ -15,7 +15,7 @@ class CreateContractProductsTable extends Migration
     {
         Schema::create('contract_products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('contract_id')->index();
+            $table->string('contract_id', 30)->index();
 
             $table->integer('ordNo');
             $table->text('name');
@@ -24,11 +24,8 @@ class CreateContractProductsTable extends Migration
             $table->string('barCode')->nullable();
             $table->integer('measureId');
             $table->integer('count');
-            $table->decimal('summa', 15,2);
-            $table->decimal('vatRate', 15,2);
-            $table->decimal('vatSum', 15,2);
-            $table->decimal('deliverySumWithVat', 15,2);
-            $table->boolean('withoutVat')->default(false);
+            $table->decimal('price', 15,2);
+            $table->decimal('deliverySum', 15, 2);
 
             $table->timestamps();
         });

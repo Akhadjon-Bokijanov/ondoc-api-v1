@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ContractPart extends Model
 {
     use HasFactory;
+
+    protected $guarded=[];
+
+    public function contract(){
+        return $this->belongsTo(Contract::class, "contractId", "contract_id");
+    }
 }

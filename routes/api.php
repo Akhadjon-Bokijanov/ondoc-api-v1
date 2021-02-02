@@ -9,6 +9,7 @@ use \App\Http\Controllers\CompanyUserController;
 use \App\Http\Controllers\FacturaProductController;
 use \App\Http\Controllers\CabinetController;
 use \App\Http\Controllers\LoginController;
+use \App\Http\Controllers\ContractController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,15 +29,17 @@ Route::prefix('v1')->group(function (){
     //body
     //      body data
 
-    //Route::group(["middleware"=>"auth:api,companies"], function (){
+    Route::group(["middleware"=>["auth:api,companies","cors"]], function (){
 
         Route::apiResource('company-user', CompanyUserController::class);
 
         Route::apiResource('cabinet', CabinetController::class);
 
-        //these are basic CRUD factura actions
+        //these are basic CRUD document actions
+        Route::apiResource('contracts', ContractController::class);
+
         Route::apiResource('facturas', FacturaController::class);
-        //these are for extra factura actions
+        //these are for extra document actions
 
 
         Route::apiResource('factura-products', FacturaProductController::class);
@@ -56,7 +59,7 @@ Route::prefix('v1')->group(function (){
                 return auth()->guard('companies')->user();
             }
         });
-   // });
+    });
 
     Route::apiResource("login-with-password", LoginController::class);
     Route::get('facturas/get-pdf/{facturaId}', '\App\Http\Controllers\FacturaController@generatePdf')->name('facturas.get-pdf');

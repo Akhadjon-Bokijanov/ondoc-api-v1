@@ -17,7 +17,7 @@ class CreateContractsTable extends Migration
             $table->id();
 
             //CONTRACT MODEL
-            $table->string('contractId', 30);
+            $table->string('contractId', 30)->index();
             $table->boolean('hasVat')->default(false);
             $table->string("contractName");
             $table->string("contractNo");
