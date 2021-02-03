@@ -25,11 +25,12 @@ class CreateEmpowermentsTable extends Migration
             $table->integer('buyerTin');
             $table->text('buyerName');
             $table->integer('buyerAccount')->nullable();
-            $table->integer('buyerBankId');
+            $table->integer('buyerBankId')->nullable();
             $table->text('buyerAddress')->nullable();
             $table->text('buyerMobile')->nullable();
             $table->text('buyerWorkPhone')->nullable();
             $table->integer('buyerOked')->nullable();
+            $table->text("buyerMfo")->nullable();
             $table->integer('buyerRegionId')->nullable();
             $table->integer('buyerDistrictId')->nullable();
             $table->string('buyerDirector', 1000)->nullable();
@@ -47,13 +48,14 @@ class CreateEmpowermentsTable extends Migration
             $table->string('agentEmpowermentId', 30)->nullable();
 
             $table->integer('sellerTin');
-            $table->integer('sellerName');
+            $table->text('sellerName');
             $table->integer('sellerAccount')->nullable();
             $table->integer('sellerBankId')->nullable();
             $table->text('sellerAddress')->nullable();
             $table->integer('sellerMobile')->nullable();
             $table->integer('sellerWorkPhone')->nullable();
             $table->integer('sellerOked')->nullable();
+            $table->text("sellerMfo")->nullable();
             $table->integer('sellerRegion')->nullable();
             $table->integer('sellerDistrictId')->nullable();
             $table->string('sellerDirector', 1000)->nullable();
@@ -65,7 +67,7 @@ class CreateEmpowermentsTable extends Migration
             $table->string('contractNo');
             $table->dateTime('contractDate');
 
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->text('note')->nullable();
             $table->string('currentStateId')->default(1);
 

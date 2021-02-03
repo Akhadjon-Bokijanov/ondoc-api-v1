@@ -18,6 +18,7 @@ class CreateActsTable extends Migration
 
             $table->string("actNo");
             $table->dateTime('actDate');
+            $table->string("actId")->index();
             $table->text('actText');
             $table->string('contractNo');
             $table->dateTime('contractDate');
@@ -25,8 +26,7 @@ class CreateActsTable extends Migration
             $table->string('sellerName');
             $table->integer('buyerTin');
             $table->string('buyerName');
-            $table->string('actProductId');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->text('notes');
 
             $table->timestamps();

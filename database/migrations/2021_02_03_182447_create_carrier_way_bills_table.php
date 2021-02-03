@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActProductsTable extends Migration
+class CreateCarrierWayBillsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,8 @@ class CreateActProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('act_products', function (Blueprint $table) {
+        Schema::create('carrier_way_bills', function (Blueprint $table) {
             $table->id();
-            $table->string('actId')->index();
-            $table->integer('ordNo');
-            $table->text('name');
-            $table->integer('measureId');
-            $table->integer('count');
-            $table->decimal('price', 15,2);
-
             $table->timestamps();
         });
     }
@@ -33,6 +26,6 @@ class CreateActProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('act_products');
+        Schema::dropIfExists('carrier_way_bills');
     }
 }

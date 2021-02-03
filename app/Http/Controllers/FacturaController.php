@@ -83,8 +83,7 @@ class FacturaController extends Controller
     public function show($factura)
     {
         //
-        $data = Factura::with(array('facturaProducts', 'facturaProducts.measure'))->find($factura);
-        return $data;
+        return Factura::with(array('facturaProducts', 'facturaProducts.measure'))->find($factura);
 
     }
 
@@ -119,6 +118,8 @@ class FacturaController extends Controller
             return $exception->getMessage();
         }
         DB::commit();
+
+        return ["message"=>"success", "ok"=>true];
     }
 
     /**

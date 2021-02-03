@@ -10,6 +10,8 @@ use \App\Http\Controllers\FacturaProductController;
 use \App\Http\Controllers\CabinetController;
 use \App\Http\Controllers\LoginController;
 use \App\Http\Controllers\ContractController;
+use \App\Http\Controllers\ActController;
+use \App\Http\Controllers\EmpowermentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,9 +38,14 @@ Route::prefix('v1')->group(function (){
         Route::apiResource('cabinet', CabinetController::class);
 
         //these are basic CRUD document actions
+        Route::apiResource('acts', ActController::class);
+
         Route::apiResource('contracts', ContractController::class);
 
         Route::apiResource('facturas', FacturaController::class);
+
+        Route::apiResource('empowerments', EmpowermentController::class);
+
         //these are for extra document actions
 
 

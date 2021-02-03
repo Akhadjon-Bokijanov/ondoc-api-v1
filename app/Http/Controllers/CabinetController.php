@@ -50,14 +50,17 @@ class CabinetController extends Controller
         if ($tab_index == self::RECEIVED_DOCS){
             $docs = DB::select("SELECT id, facturas.facturaNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'factura' as docType, status FROM facturas WHERE sellerTin = ? OR buyerTin=?
             UNION
-            SELECT id, acts.actNo as docNo, created_at,  sellerName, sellerTin, buyerName, buyerTin, contractNo, 'act' as docType, status FROM acts WHERE sellerTin = ? OR buyerTin=?
+            SELECT id, acts.actNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'act' as docType, status FROM acts WHERE sellerTin = ? OR buyerTin=?
             UNION
-            SELECT id, empowerments.empowermentNo as docNo, created_at,  sellerName, sellerTin, buyerName, buyerTin, contractNo, 'empowerment' as docType, status FROM empowerments WHERE sellerTin = ? OR buyerTin=?
+            SELECT id, empowerments.empowermentNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'empowerment' as docType, status FROM empowerments WHERE sellerTin = ? OR buyerTin=?
             UNION
             SELECT id, contracts.contractNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'contract' as docType, status  FROM contracts WHERE sellerTin = ? OR buyerTin=?
 
             ORDER BY created_at DESC
-            LIMIT 200" , [$user["tin"], $user["tin"], $user["tin"],$user["tin"],$user["tin"],$user["tin"],$user["tin"],$user["tin"] ]);
+            LIMIT 200" , [$user["tin"], $user["tin"],
+                $user["tin"],$user["tin"],
+                $user["tin"],$user["tin"],
+                $user["tin"],$user["tin"] ]);
         }
 
         return ["docs"=>$docs];

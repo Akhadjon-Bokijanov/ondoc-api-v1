@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\RoumingHelper;
 use App\Models\Act;
+use App\Models\ActProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ActController extends Controller
 {
@@ -15,6 +19,11 @@ class ActController extends Controller
     public function index()
     {
         //
+        return Act::where(function ($q){
+            $user = $this->user();
+            $q->where("sellerTin", $user["tin"])
+                ->orWhere("buyerTin", $user["tin"]);
+        })->get();
     }
 
     /**
@@ -26,6 +35,35 @@ class ActController extends Controller
     public function store(Request $request)
     {
         //
+
+        $data = $request->all();
+        try {
+
+            $act = $data["act"];
+            $products = $data["products"];
+
+            $act["contractDate"] = date('Y-m-d 00:00:00', strtotime($act["contractDate"]));
+            $act["actDate"] = date('Y-m-d 00:00:00', strtotime($act["actDate"]));
+
+            $act["actId"] = Str::random(24);//RoumingHelper::getDocID();
+            DB::beginTransaction();
+
+            try {
+                Act::create($act);
+
+                $this->saveActProducts($products, $act["actId"]);
+
+            }catch (\Exception $exception){
+                DB::rollBack();
+                return $exception->getMessage();
+            }
+
+            DB::commit();
+
+        }catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+
     }
 
     /**
@@ -34,9 +72,10 @@ class ActController extends Controller
      * @param  \App\Models\Act  $act
      * @return \Illuminate\Http\Response
      */
-    public function show(Act $act)
+    public function show($act)
     {
         //
+        return Act::with(array('actProducts', 'actProducts.measure'))->find($act);
     }
 
     /**
@@ -46,9 +85,40 @@ class ActController extends Controller
      * @param  \App\Models\Act  $act
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Act $act)
+    public function update(Request $request, $a)
     {
         //
+        try {
+            $data = $request->all();
+            $act = $data["act"];
+
+            $act["contractDate"] = date('Y-m-d 00:00:00', strtotime($act["contractDate"]));
+            $act["actDate"] = date('Y-m-d 00:00:00', strtotime($act["actDate"]));
+
+            DB::beginTransaction();
+            try {
+                $a = Act::find($a);
+                $a->update($act);
+
+                $this->saveActProducts($data["products"], $act["actId"]);
+
+            }catch (\Exception $exception){
+                DB::rollBack();
+
+                return $exception->getMessage();
+            }
+
+            DB::commit();
+
+            return ["message"=>"success", "ok"=>true];
+
+        } catch (\Exception $exception){
+
+            return $exception->getMessage();
+        }
+
+
+
     }
 
     /**
@@ -60,5 +130,26 @@ class ActController extends Controller
     public function destroy(Act $act)
     {
         //
+        $act->delete();
+    }
+
+    private function saveActProducts($products, $actId){
+
+        ActProduct::where('actId', $actId)->delete();
+
+        array_shift($products);
+
+        foreach ($products as $product){
+            $ap = new ActProduct();
+            $ap->actId = $actId;
+            $ap->ordNo = $product[Act::ORD_NO]["value"];
+            $ap->measureId = $product[Act::MEASURE_ID]["value"];
+            $ap->count = $product[Act::COUNT]["value"];
+            $ap->price = $product[Act::PRICE]["value"];
+            $ap->name = $product[Act::NAME]["value"];
+            if (!$ap->save()){
+                throw new \Exception("Act failed to save");
+            }
+        }
     }
 }
