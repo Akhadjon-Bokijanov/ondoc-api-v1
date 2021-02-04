@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CarrierWayBill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CarrierWayBillController extends Controller
 {
@@ -15,6 +16,12 @@ class CarrierWayBillController extends Controller
     public function index()
     {
         //
+
+        return CarrierWayBill::where(function ($q){
+            $user = $this->user();
+            $q->where("sellerTin", $user["tin"])
+                ->orWhere("buyerTin", $user["tin"]);
+        })->get();
     }
 
     /**
@@ -26,6 +33,22 @@ class CarrierWayBillController extends Controller
     public function store(Request $request)
     {
         //
+        try {
+            $data = $request->all();
+
+            $tty = $data["tty"];
+            $tty["contractDate"] = date('Y-m-d 00:00:00', strtotime($tty["contractDate"]));
+            $tty["tripTicketDate"] = date('Y-m-d 00:00:00', strtotime($tty["tripTicketDate"]));
+            $tty["wayBillDate"] = date('Y-m-d 00:00:00', strtotime($tty["wayBillDate"]));
+            $tty["wayBillId"] = Str::random(24);
+            $tty["wayBillProductId"] = Str::random(24);
+            CarrierWayBill::create($tty);
+
+            return ["message"=>"success", "ok"=>true];
+
+        } catch (\Exception $exception){
+            return $exception->getMessage();
+        }
     }
 
     /**
@@ -34,9 +57,10 @@ class CarrierWayBillController extends Controller
      * @param  \App\Models\CarrierWayBill  $carrierWayBill
      * @return \Illuminate\Http\Response
      */
-    public function show(CarrierWayBill $carrierWayBill)
+    public function show($carrierWayBill)
     {
         //
+        return CarrierWayBill::find($carrierWayBill);
     }
 
     /**
@@ -46,9 +70,24 @@ class CarrierWayBillController extends Controller
      * @param  \App\Models\CarrierWayBill  $carrierWayBill
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CarrierWayBill $carrierWayBill)
+    public function update(Request $request, $carrierWayBill)
     {
         //
+        try {
+            $t = CarrierWayBill::find($carrierWayBill);
+
+            $data = $request->all();
+
+            $tty = $data["tty"];
+            $tty["contractDate"] = date('Y-m-d 00:00:00', strtotime($tty["contractDate"]));
+            $tty["tripTicketDate"] = date('Y-m-d 00:00:00', strtotime($tty["tripTicketDate"]));
+            $tty["wayBillDate"] = date('Y-m-d 00:00:00', strtotime($tty["wayBillDate"]));
+
+            $t->update($tty);
+            return ["message"=>"success", "ok"=>true];
+        } catch (\Exception $exception){
+            return $exception->getMessage();
+        }
     }
 
     /**
@@ -57,8 +96,10 @@ class CarrierWayBillController extends Controller
      * @param  \App\Models\CarrierWayBill  $carrierWayBill
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CarrierWayBill $carrierWayBill)
+    public function destroy($carrierWayBill)
     {
         //
+        return CarrierWayBill::destroy($carrierWayBill);
+
     }
 }

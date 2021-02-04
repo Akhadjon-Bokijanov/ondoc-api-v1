@@ -5,17 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="377e62b5-87da-4e96-b94f-1b65c4487c07" name="Default Changelist" comment="Factura modified, stuructura configured">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/PaymeTransactionController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/PaymeTransaction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/PaymeTransactionFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_02_04_172947_create_payme_transactions_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/PaymeTransactionSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ActController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ActController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CabinetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CabinetController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmpowermentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmpowermentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Act.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Act.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ActProduct.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ActProduct.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/EmpowermentProduct.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/EmpowermentProduct.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_12_072731_create_empowerments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_12_072731_create_empowerments_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_23_065705_create_acts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_065705_create_acts_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_23_065722_create_act_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_065722_create_act_products_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CarrierWayBillController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CarrierWayBillController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/CarrierWayBill.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/CarrierWayBill.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_02_03_182447_create_carrier_way_bills_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_02_03_182447_create_carrier_way_bills_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -228,7 +227,8 @@
       <workItem from="1611981479603" duration="12770000" />
       <workItem from="1612156267737" duration="15050000" />
       <workItem from="1612239724221" duration="19338000" />
-      <workItem from="1612327342513" duration="13688000" />
+      <workItem from="1612327342513" duration="15486000" />
+      <workItem from="1612413157847" duration="11412000" />
     </task>
     <task id="LOCAL-00001" summary="Factura modified, stuructura configured">
       <created>1611752850958</created>

@@ -55,12 +55,15 @@ class CabinetController extends Controller
             SELECT id, empowerments.empowermentNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'empowerment' as docType, status FROM empowerments WHERE sellerTin = ? OR buyerTin=?
             UNION
             SELECT id, contracts.contractNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'contract' as docType, status  FROM contracts WHERE sellerTin = ? OR buyerTin=?
-
+            UNION
+            SELECT id, wayBillNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'tty' as docType, state as status FROM carrier_way_bills WHERE sellerTin = ? OR buyerTin=?
             ORDER BY created_at DESC
             LIMIT 200" , [$user["tin"], $user["tin"],
                 $user["tin"],$user["tin"],
                 $user["tin"],$user["tin"],
-                $user["tin"],$user["tin"] ]);
+                $user["tin"],$user["tin"],
+                $user["tin"],$user["tin"]
+            ]);
         }
 
         return ["docs"=>$docs];
