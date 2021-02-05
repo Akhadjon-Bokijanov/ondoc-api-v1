@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="377e62b5-87da-4e96-b94f-1b65c4487c07" name="Default Changelist" comment="Factura modified, stuructura configured">
+      <change afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PaymeTransactionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PaymeTransactionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_02_04_172947_create_payme_transactions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_02_04_172947_create_payme_transactions_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +220,7 @@
       <workItem from="1612239724221" duration="19338000" />
       <workItem from="1612327342513" duration="15486000" />
       <workItem from="1612413157847" duration="14070000" />
-      <workItem from="1612517946560" duration="2399000" />
+      <workItem from="1612517946560" duration="3976000" />
     </task>
     <task id="LOCAL-00001" summary="Factura modified, stuructura configured">
       <created>1611752850958</created>
