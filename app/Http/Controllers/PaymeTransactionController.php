@@ -195,7 +195,7 @@ class PaymeTransactionController extends Controller
             $transaction->transaction_create_time = $request['params']['time'];
             $transaction->create_time = (int)($transaction->create_time == null ? round(microtime(true) * 1000) : $transaction->create_time);
         }
-        $transaction->transaction_amount = (int)$request['params']['amount'];
+        $transaction->amount = (int)$request['params']['amount'];
         $transaction->state = self::STATE_NEW;
         $transaction->save();
         return $this->success([
