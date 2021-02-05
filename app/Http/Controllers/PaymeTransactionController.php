@@ -86,9 +86,12 @@ class PaymeTransactionController extends Controller
      * @param  \App\Models\PaymeTransaction  $paymeTransaction
      * @return \Illuminate\Http\Response
      */
-    public function show(PaymeTransaction $paymeTransaction)
+    public function show($paymeTransaction)
     {
         //
+        //return Company::where(['tin'=>$paymeTransaction])->first();
+        return PaymeTransaction::where(['transaction_id' => $paymeTransaction])->first();
+
     }
 
     /**
@@ -148,7 +151,7 @@ class PaymeTransactionController extends Controller
 
     public function CheckPerformTransaction($request) {
         try {
-            $model = Company::find(['tin'=>$request['params']['account']['tin']]);
+            $model = Company::where(['tin'=>$request['params']['account']['tin']])->first();
             if(empty($model))
                 return $this->error(self::CODE_OLYMPIAD_NOT_FOUND,[
                     'uz' => 'So\'rov topilmadi',
@@ -164,7 +167,7 @@ class PaymeTransactionController extends Controller
     public function CreateTransaction($request) {
         try {
 
-            $model = Company::find(['tin'=>$request['params']['account']['tin']]);
+            $model = Company::where(['tin'=>$request['params']['account']['tin']])->first();
             if(empty($model))
                 return $this->error(self::CODE_OLYMPIAD_NOT_FOUND,[
                     'uz' => 'So\'rov topilmadi',
@@ -172,7 +175,7 @@ class PaymeTransactionController extends Controller
                     'en' => 'Request not found',
                 ]);
 
-            $transaction = PaymeTransaction::find(['transaction_id' => $request['params']['id']]);
+            $transaction = PaymeTransaction::where(['transaction_id' => $request['params']['id']])->first();
             if(!empty($transaction) && $transaction->state != self::STATE_NEW)
                 return $this->error(self::CODE_STATE_NOT_1,[
                     'uz' => 'Tranzaksiya to\'lovni kutyapti',
@@ -204,7 +207,7 @@ class PaymeTransactionController extends Controller
 
     public function PerformTransaction($request) {
         try {
-            $model = PaymeTransaction::find(['transaction_id' => $request['params']['id']]);
+            $model = PaymeTransaction::where(['transaction_id' => $request['params']['id']])->first();
             if(empty($model))
                 return $this->error(self::CODE_TRANSACTION_NOT_FOUND,[
                     'uz' => 'Tranzaksiya topilmadi',
@@ -238,7 +241,7 @@ class PaymeTransactionController extends Controller
 
     public function CancelTransaction($request) {
         try {
-            $model = PaymeTransaction::find(['transaction_id' => $request['params']['id']]);
+            $model = PaymeTransaction::where(['transaction_id' => $request['params']['id']])->first();
             if(empty($model))
                 return $this->error(self::CODE_TRANSACTION_NOT_FOUND,[
                     'uz' => 'Tranzaksiya topilmadi',
@@ -261,7 +264,7 @@ class PaymeTransactionController extends Controller
 
     public function CheckTransaction($request) {
         try {
-            $model = PaymeTransaction::find(['transaction_id' => $request['params']['id']]);
+            $model = PaymeTransaction::where(['transaction_id' => $request['params']['id']])->first();
             if(empty($model))
                 return $this->error(self::CODE_TRANSACTION_NOT_FOUND,[
                     'uz' => 'Tranzaksiya topilmadi',
