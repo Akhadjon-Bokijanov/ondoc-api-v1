@@ -25,6 +25,7 @@ class CreatePaymeTransactionsTable extends Migration
             $table->integer("reason")->nullable();
             $table->integer("tin");
             $table->text("description")->nullable();
+            $table->integer('state')->default(1);
 
             $table->timestamps();
         });
