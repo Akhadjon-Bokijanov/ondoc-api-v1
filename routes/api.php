@@ -13,6 +13,7 @@ use \App\Http\Controllers\ContractController;
 use \App\Http\Controllers\ActController;
 use \App\Http\Controllers\EmpowermentController;
 use \App\Http\Controllers\CarrierWayBillController;
+use \App\Http\Controllers\PaymeTransactionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,7 +33,7 @@ Route::prefix('v1')->group(function (){
     //body
     //      body data
 
-    Route::group(["middleware"=>["auth:api,companies","cors"]], function (){
+    //Route::group(["middleware"=>["auth:api,companies","cors"]], function (){
 
         Route::apiResource('company-user', CompanyUserController::class);
 
@@ -69,7 +70,9 @@ Route::prefix('v1')->group(function (){
                 return auth()->guard('companies')->user();
             }
         });
-    });
+    //});
+
+    Route::apiResource('payme', PaymeTransactionController::class);
 
     Route::apiResource("login-with-password", LoginController::class);
     Route::get('facturas/get-pdf/{facturaId}', '\App\Http\Controllers\FacturaController@generatePdf')->name('facturas.get-pdf');

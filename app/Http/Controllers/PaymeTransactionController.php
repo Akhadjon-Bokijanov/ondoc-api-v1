@@ -43,7 +43,7 @@ class PaymeTransactionController extends Controller
     public function index()
     {
         //
-
+        return PaymeTransaction::all();
     }
 
     /**
