@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 class PaymeTransactionController extends Controller
 {
     const USERNAME = 'Paycom';
-//    const PASSWORD = '0hPynDxtuKodN0npK887kC?bqIe2GNw%D4kj';
     const PASSWORD = '8c&?y?&fUWa%ygdTorG0jY?EG%x6XGPowFOr'; //this is test key
 
     const PASSWORD_TEST = 'rw6P3oT1eDArP7jE6KyIyBqboou#SxG6ZQT7';
@@ -173,7 +172,7 @@ class PaymeTransactionController extends Controller
                     'en' => 'Request not found',
                 ]);
 
-            $transaction = PaymeTransaction::findOne(['transaction_id' => $request['params']['id']]);
+            $transaction = PaymeTransaction::find(['transaction_id' => $request['params']['id']]);
             if(!empty($transaction) && $transaction->state != Transactions::STATE_NEW)
                 return $this->error(self::CODE_STATE_NOT_1,[
                     'uz' => 'Tranzaksiya to\'lovni kutyapti',
@@ -263,7 +262,7 @@ class PaymeTransactionController extends Controller
 
     public function CheckTransaction($request) {
         try {
-            $model = PaymeTransaction::findOne(['transaction_id' => $request['params']['id']]);
+            $model = PaymeTransaction::find(['transaction_id' => $request['params']['id']]);
             if(empty($model))
                 return $this->error(self::CODE_TRANSACTION_NOT_FOUND,[
                     'uz' => 'Tranzaksiya topilmadi',
