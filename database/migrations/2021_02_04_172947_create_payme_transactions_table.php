@@ -16,18 +16,16 @@ class CreatePaymeTransactionsTable extends Migration
         Schema::create('payme_transactions', function (Blueprint $table) {
             $table->id();
 
-            $table->string('paycom_transaction_id');
-            $table->string("paycom_tim")->default("0");
-            $table->dateTime("paycom_time_datetime");
-            $table->dateTime("perform_time")->nullable();
-            $table->dateTime("cancel_time")->nullable();
+            $table->string('transaction_id');
+            $table->integer("transaction_create_time")->nullable();
+            $table->integer("perform_time")->nullable();
+            $table->integer("create_time");
+            $table->integer("cancel_time")->nullable();
             $table->decimal("amount");
             $table->integer("reason")->nullable();
             $table->integer("tin");
             $table->text("description")->nullable();
             $table->integer('state')->default(1);
-
-            $table->timestamps();
         });
     }
 

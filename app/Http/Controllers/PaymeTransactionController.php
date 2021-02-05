@@ -173,7 +173,7 @@ class PaymeTransactionController extends Controller
                 ]);
 
             $transaction = PaymeTransaction::find(['transaction_id' => $request['params']['id']]);
-            if(!empty($transaction) && $transaction->state != Transactions::STATE_NEW)
+            if(!empty($transaction) && $transaction->state != self::STATE_NEW)
                 return $this->error(self::CODE_STATE_NOT_1,[
                     'uz' => 'Tranzaksiya to\'lovni kutyapti',
                     'ru' => 'В ожидании оплаты',
@@ -188,7 +188,6 @@ class PaymeTransactionController extends Controller
         if(empty($transaction)) {
             $transaction = new PaymeTransaction();
             $transaction->transaction_id = $request['params']['id'];
-            $transaction->transaction_account = Json::encode($request['params']['account']);
             $transaction->tin = $request['params']['account']['tin'];
             $transaction->transaction_create_time = $request['params']['time'];
             $transaction->create_time = (int)($transaction->create_time == null ? round(microtime(true) * 1000) : $transaction->create_time);
