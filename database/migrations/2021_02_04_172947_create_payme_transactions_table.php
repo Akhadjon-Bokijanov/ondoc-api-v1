@@ -17,10 +17,10 @@ class CreatePaymeTransactionsTable extends Migration
             $table->id();
 
             $table->string('transaction_id');
-            $table->integer("perform_time")->nullable();
+            $table->bigInteger("perform_time")->nullable();
             $table->string('transaction_create_time')->nullable();
-            $table->integer("create_time");
-            $table->integer("cancel_time")->nullable();
+            $table->bigIncrements("create_time");
+            $table->bigInteger("cancel_time")->nullable();
             $table->decimal("amount");
             $table->integer("reason")->nullable();
             $table->integer("tin");
