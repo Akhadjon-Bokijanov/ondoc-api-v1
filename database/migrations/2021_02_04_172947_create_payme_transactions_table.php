@@ -19,7 +19,7 @@ class CreatePaymeTransactionsTable extends Migration
             $table->string('transaction_id');
             $table->string("perform_time")->nullable();
             $table->string('transaction_create_time')->nullable();
-            $table->bigIncrements("create_time");
+            $table->string("create_time");
             $table->string("cancel_time")->nullable();
             $table->decimal("amount");
             $table->integer("reason")->nullable();
