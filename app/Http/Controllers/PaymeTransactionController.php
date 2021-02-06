@@ -294,7 +294,7 @@ class PaymeTransactionController extends Controller
 
         $model->cancel_time = (int)($model->cancel_time == null ? round(microtime(true) * 1000) : $model->cancel_time);
         $model->reason = $request["params"]["reason"] ?? 5;
-        $model->state = $model->state == self::STATE_NEW ? self::STATE_CANCELED : self::STATE_CANCELED_AFTER_COMPLETE;
+        $model->state = $model->state == self::STATE_NEW || $model->state==self::STATE_CANCELED ? self::STATE_CANCELED : self::STATE_CANCELED_AFTER_COMPLETE;
         $model->save();
         return $this->success([
             'transaction' => (string)$model->id,
