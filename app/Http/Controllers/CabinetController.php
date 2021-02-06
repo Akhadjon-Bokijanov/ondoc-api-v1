@@ -53,7 +53,7 @@ class CabinetController extends Controller
                 $user = $this->user();
                 $q->where('sellerTin', $user["tin"])
                     ->orWhere([["buyerTin", $user["tin"]]], ["state", "!=", 1] );
-            })->select(['facturaNo as docNo', "sellerName", "sellerTin", "buyerTin", "buyerName", "created_at", "contractNo", DB::raw('"factura" as docType'), "status"]);
+            })->select(['facturaNo as docNo', "sellerName", "sellerTin", "buyerTin", "buyerName", "created_at", "contractNo", DB::raw("'factura' as docType"), "status"]);
 
         $acts = DB::table('acts')
             ->where(function ($q){
