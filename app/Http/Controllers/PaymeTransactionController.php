@@ -265,6 +265,15 @@ class PaymeTransactionController extends Controller
 
     public function CheckTransaction($request) {
         try {
+
+            if ($request["params"]["amount"]<100){
+                return $this->error(self::CODE_WRONG_AMOUNT,[
+                    'uz' => 'Notog`ri summa',
+                    'ru' => 'Invalid summa',
+                    'en' => 'Invalid summa',
+                ]);
+            }
+
             $model = PaymeTransaction::where(['transaction_id' => $request['params']['id']])->first();
             if(empty($model))
                 return $this->error(self::CODE_TRANSACTION_NOT_FOUND,[
