@@ -206,7 +206,7 @@ class PaymeTransactionController extends Controller
             $recent_transaction = PaymeTransaction::where(["tin"=>$request["params"]["account"]["tin"], "amount"=>$request["params"]["amount"]])
                 ->orderBy('created_at', 'desc')->first();
             if (!empty($recent_transaction)){
-                $created_at = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::parse($recent_transaction->create_time)->format('Y-m-d H:i:s'));
+                $created_at = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::parse($recent_transaction->created_at)->format('Y-m-d H:i:s'));
                 $now = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::parse( date('Y-m-d H:i:s'))->format('Y-m-d H:i:s'));
                 return $created_at->diffInMinutes($now);
                 if ($created_at->diffInMinutes($now)<2){
