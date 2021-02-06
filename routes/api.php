@@ -33,7 +33,7 @@ Route::prefix('v1')->group(function (){
     //body
     //      body data
 
-    //Route::group(["middleware"=>["auth:api,companies","cors"]], function (){
+    Route::group(["middleware"=>["auth:api,companies","cors"]], function (){
 
         Route::apiResource('company-user', CompanyUserController::class);
 
@@ -70,7 +70,7 @@ Route::prefix('v1')->group(function (){
                 return auth()->guard('companies')->user();
             }
         });
-    //});
+    });
 
     Route::apiResource('payme', PaymeTransactionController::class);
 
