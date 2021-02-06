@@ -203,7 +203,7 @@ class PaymeTransactionController extends Controller
                 ]);
             }
 
-            $recent_transaction = PaymeTransaction::where(["tin"=>$request["account"]["tin"], "amount"=>$request["params"]["amount"]])
+            $recent_transaction = PaymeTransaction::where(["tin"=>$request["params"]["account"]["tin"], "amount"=>$request["params"]["amount"]])
                 ->orderBy('created_at', 'desc')->first();
             if (!empty($recent_transaction)){
                 $created_at = Carbon::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s', $recent_transaction->create_time));
