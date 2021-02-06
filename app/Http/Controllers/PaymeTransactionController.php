@@ -208,8 +208,8 @@ class PaymeTransactionController extends Controller
             if (!empty($recent_transaction)){
                 $created_at = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::parse($recent_transaction->created_at)->format('Y-m-d H:i:s'));
                 $now = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::parse( date('Y-m-d H:i:s'))->format('Y-m-d H:i:s'));
-                return $created_at->diffInMinutes($now);
-                if ($created_at->diffInMinutes($now)<2){
+
+                if ($created_at->diffInMinutes($now)<3){
                     return $this->error(self::CODE_SERVER_ERROR, [
                         'uz' => 'Oxirgi transaksiyag 2 min bolmadi',
                         'ru' => 'В ожидании оплаты',
