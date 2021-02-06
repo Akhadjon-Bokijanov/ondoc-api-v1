@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Factura;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,26 +48,49 @@ class CabinetController extends Controller
         $user = $this->user();
         $docs = [];
 
-        if ($tab_index == self::RECEIVED_DOCS){
-            $docs = DB::select("SELECT id, facturas.facturaNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'factura' as docType, status FROM facturas WHERE sellerTin = ? OR buyerTin=?
-            UNION
-            SELECT id, acts.actNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'act' as docType, status FROM acts WHERE sellerTin = ? OR buyerTin=?
-            UNION
-            SELECT id, empowerments.empowermentNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'empowerment' as docType, status FROM empowerments WHERE sellerTin = ? OR buyerTin=?
-            UNION
-            SELECT id, contracts.contractNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'contract' as docType, status  FROM contracts WHERE sellerTin = ? OR buyerTin=?
-            UNION
-            SELECT id, wayBillNo as docNo, sellerName, sellerTin, buyerTin, buyerName, created_at, contractNo, 'tty' as docType, state as status FROM carrier_way_bills WHERE sellerTin = ? OR buyerTin=?
-            ORDER BY created_at DESC
-            LIMIT 200" , [$user["tin"], $user["tin"],
-                $user["tin"],$user["tin"],
-                $user["tin"],$user["tin"],
-                $user["tin"],$user["tin"],
-                $user["tin"],$user["tin"]
-            ]);
-        }
+        $facturas = DB::table('facturas')
+            ->where(function ($q){
+                $user = $this->user();
+                $q->where('sellerTin', $user["tin"])
+                    ->orWhere([["buyerTin", $user["tin"]]], ["state", "!=", 1] );
+            })->select(['facturaNo as docNo', "sellerName", "sellerTin", "buyerTin", "buyerName", "created_at", "contractNo", DB::raw('"factura" as docType'), "status"]);
 
-        return ["docs"=>$docs];
+        $acts = DB::table('acts')
+            ->where(function ($q){
+                $user = $this->user();
+                $q->where('sellerTin', $user["tin"])
+                    ->orWhere([["buyerTin", $user["tin"]]], ["state", "!=", 1] );
+            })->select(['actNo as docNo', "sellerName", "sellerTin", "buyerTin", "buyerName", "created_at", "contractNo", DB::raw("'act' as docType"), "status"]);
+
+        $empowerments = DB::table('empowerments')
+            ->where(function ($q){
+                $user = $this->user();
+                $q->where('sellerTin', $user["tin"])
+                    ->orWhere([["buyerTin", $user["tin"]]], ["state", "!=", 1] );
+            })->select(['empowermentNo as docNo', "sellerName", "sellerTin", "buyerTin", "buyerName", "created_at", "contractNo", DB::raw("'empowerment' as docType"), "status"]);
+
+        $contracts = DB::table('contracts')
+            ->where(function ($q){
+                $user = $this->user();
+                $q->where('sellerTin', $user["tin"])
+                    ->orWhere([["buyerTin", $user["tin"]]], ["state", "!=", 1] );
+            })->select(['contractNo as docNo', "sellerName", "sellerTin", "buyerTin", "buyerName", "created_at", "contractNo",DB::raw("'contract' as docType"), "status"]);
+
+        $ttys = DB::table('carrier_way_bills')
+            ->where(function ($q){
+                $user = $this->user();
+                $q->where('sellerTin', $user["tin"])
+                    ->orWhere([["buyerTin", $user["tin"]]], ["state", "!=", 1] );
+            })->select(['contractNo as docNo', "sellerName", "sellerTin", "buyerTin", "buyerName", "created_at", "contractNo",DB::raw("'tty' as docType"), "status"]);
+
+        $all = $facturas->union($ttys)
+            ->union($acts)
+            ->union($contracts)
+            ->union($contracts)
+            ->orderBy("created_at", "DESC")->get();
+
+
+        return ["docs"=>$all];
 
     }
 

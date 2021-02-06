@@ -18,7 +18,7 @@ class CreateCarrierWayBillsTable extends Migration
 
             $table->string("wayBillId")->index();
             $table->string("wayBillProductId")->index();
-            $table->integer("state")->default(1);
+            $table->integer("status")->default(1);
             $table->text("notes")->nullable();
             $table->integer("carrierTin")->nullable();
             $table->text("carrierName")->nullable();
