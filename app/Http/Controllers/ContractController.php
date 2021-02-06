@@ -8,6 +8,7 @@ use App\Models\ContractPart;
 use App\Models\ContractProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ContractController extends Controller
 {
@@ -43,7 +44,7 @@ class ContractController extends Controller
             //return $data;
             //var_dump($data);
             //die();
-            $contractId = RoumingHelper::getDocID();
+            $contractId = Str::random(24);//RoumingHelper::getDocID();
             $contract = $data["contract"];
             $contract["contractId"] = $contractId;
 

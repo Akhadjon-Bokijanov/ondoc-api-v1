@@ -55,8 +55,8 @@ class FacturaController extends Controller
             $data = $request->all();
             //if ()
             $factura = $data["factura"];
-            $factura["facturaId"] =RoumingHelper::getDocID();
-            $factura["facturaProductId"] =RoumingHelper::getDocID();
+            $factura["facturaId"] = Str::random(24); //RoumingHelper::getDocID();
+            $factura["facturaProductId"] = Str::random(24);//RoumingHelper::getDocID();
             $factura["facturaDate"] = date('Y-m-d 00:00:00', strtotime($factura["facturaDate"]));
             $factura["contractDate"] = date('Y-m-d 00:00:00', strtotime($factura["contractDate"]));
             $factura["empowermentDateOfIssue"] = date('Y-m-d 00:00:00', strtotime($factura["empowermentDateOfIssue"]));
