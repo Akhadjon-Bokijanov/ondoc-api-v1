@@ -151,6 +151,15 @@ class PaymeTransactionController extends Controller
 
     public function CheckPerformTransaction($request) {
         try {
+
+            if ($request["params"]["amount"]<100){
+                return $this->error(self::CODE_WRONG_AMOUNT,[
+                    'uz' => 'Notog`ri summa',
+                    'ru' => 'Invalid summa',
+                    'en' => 'Invalid summa',
+                ]);
+            }
+
             $model = Company::where(['tin'=>$request['params']['account']['tin']])->first();
             if(empty($model))
                 return $this->error(self::CODE_OLYMPIAD_NOT_FOUND,[
@@ -266,13 +275,7 @@ class PaymeTransactionController extends Controller
     public function CheckTransaction($request) {
         try {
 
-            if ($request["params"]["amount"]<100){
-                return $this->error(self::CODE_WRONG_AMOUNT,[
-                    'uz' => 'Notog`ri summa',
-                    'ru' => 'Invalid summa',
-                    'en' => 'Invalid summa',
-                ]);
-            }
+
 
             $model = PaymeTransaction::where(['transaction_id' => $request['params']['id']])->first();
             if(empty($model))
