@@ -4,7 +4,7 @@ use Endroid\QrCode\LabelAlignment;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Response\QrCodeResponse;
 
-$qrCode = new QrCode('{"FileType": "1", "Tin":"'.$data->sellerTin.'", "Id":"'. $data->facturaId .'"}');
+$qrCode = new QrCode('{"FileType": "3", "Tin":"'.$data->sellerTin.'", "Id":"'. $data->empowermentId .'"}');
 
 $countTotal = 0;
 $exciseTotal = 0;
@@ -84,23 +84,24 @@ $deliveryWithVatTotal =0;
 </head>
 <body>
 
-<div style="border-bottom: 1px solid black; height: 18px;margin-bottom: 15px; margin-top: -17px;font-size: 11px; position: fixed; ">ID: {{ strtolower($data->facturaId) }}</div>
+<div style="border-bottom: 1px solid black; height: 18px;margin-bottom: 15px; margin-top: -17px;font-size: 11px; position: fixed; ">ID: {{ strtolower($data->empowermentId) }}</div>
 
 <div>
-<table width="100%">
-    <tr>
-        <td width="30%"></td>
-        <td width="30%" style="padding: 40px 10px;" align="center">СЧЕТ-ФАКТУРА
-            <br> № {{$data->facturaNo}}
-            <br><span style="font-size: 10px">от {{ $data->facturaDate }}</span>
-            <br>к договорам № {{ $data->contractNo }}
-            <br><span style="font-size: 10px">от {{ $data->contractDate }}</span>
-        </td>
-        <td width="30%" align="right">
-            <img style="width: 110px; height: 110px" src="{{ $qrCode->writeDataUri() }}" alt="">
-        </td>
-    </tr>
-</table>
+    <table width="100%">
+        <tr>
+            <td width="30%"></td>
+            <td width="30%" style="padding: 40px 10px;" align="center">Доверенность
+                <br> № {{$data->empowermentNo}}
+                <br><span style="font-size: 10px">от {{ $data->empowermentDateOfIssue }}</span>
+                <br><span style="font-size: 10px">до {{ $data->empowermentDateOfExpire }}</span>
+                <br>к договорам № {{ $data->contractNo }}
+                <br><span style="font-size: 10px">от {{ $data->contractDate }}</span>
+            </td>
+            <td width="30%" align="right">
+                <img style="width: 110px; height: 110px" src="{{ $qrCode->writeDataUri() }}" alt="">
+            </td>
+        </tr>
+    </table>
 </div>
 
 <table width="100%">
@@ -109,15 +110,16 @@ $deliveryWithVatTotal =0;
             <table width="90%" style="font-size: 11px;" cellpadding="3">
                 <tr>
                     <td width="150px" style="font-weight: bold; text-align: right">Поставщик:</td><td>{{ $data->sellerName }}</td>
-                    <tr>
+                </tr>
+                <tr>
                     <td width="150px" style="font-weight: bold; text-align: right">Адрес:</td><td>{{ $data->sellerAddress }}</td>
                 </tr>
                 <tr>
                     <td width="150px" style="font-weight: bold; text-align: right">ИНН:</td><td>{{ $data->sellerTin }}</td>
                 </tr>
-                    <tr>
-                        <td width="150px" style="font-weight: bold; text-align: right">Расчётный счёт:</td><td>{{ $data->sellerAccount }}</td>
-                    </tr>
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">Расчётный счёт:</td><td>{{ $data->sellerAccount }}</td>
+                </tr>
                 <tr>
                     <td width="150px" style="font-weight: bold; text-align: right">МФО банка:</td><td>{{ $data->sellerMfo }}</td>
                 </tr>
@@ -151,59 +153,30 @@ $deliveryWithVatTotal =0;
 <table class="items" width="100%" style="font-size: 7pt; border-collapse: collapse; " cellpadding="4">
     <thead>
     <tr>
-        <td align="center" rowspan="2" width="3%">№</td>
-        <td align="center" rowspan="2" width="22%">Наименование товаров (работ, услуг)</td>
-        <td rowspan="2" align="center" width="20%" style="overflow-x: hidden">Идентификационный код</td>
-        <td rowspan="2" width="5%" align="center">Единица измерения</td>
-        <td rowspan="2" width="10%" align="center">Количество</td>
-        <td align="center" colspan="2" rowspan="1">Акциз</td>
-        <td rowspan="2" width="10%" align="center">Стоимость поставки</td>
-        <td align="center" colspan="2" rowspan="1">НДС</td>
-        <td rowspan="2" width="15%" align="center">Стоимость поставки с ставка сумма учётом НДС</td>
-    </tr>
-    <tr>
-        <td rowspan="1">ставка</td>
-        <td rowspan="1" style="border-right: 1px solid black">сумма</td>
-        <td rowspan="1">ставка</td>
-        <td rowspan="1" style="border-right: 1px solid black">сумма</td>
-
+        <td align="center"  width="3%">№</td>
+        <td align="center" width="22%">Наименование товаров (работ, услуг)</td>
+        <td width="5%" align="center">Единица измерения</td>
+        <td width="10%" align="center">Количество</td>
     </tr>
     </thead>
     <tbody>
     <!-- ITEMS HERE -->
-    @foreach($data->facturaProducts as $product){
-        {{ $countTotal += $product->count }}
-        {{ $exciseTotal += (float)$product->exciseSum }}
-        {{ $vatTotal += $product->baseSumma * $product->vatRate/100 }}
-        {{ $deliveryTotal += $product->deliverySum }}
-        {{ $deliveryWithVatTotal += $product->deliverySumWithVat }}
+    @foreach($data->products as $product){
+    {{ $countTotal += $product->count }}
 
-        echo <tr>
+    echo <tr>
         <td align="center">{{$product->ordNo}}</td>
         <td align="center">{{ $product->name }}</td>
-        <td>{{ $product->catalogCode }} - {{ $product->catalogName }}</td>
         <td class="cost">{{ $product->measure->name }}</td>
         <td align="right">{{ $product->count }}</td>
-        <td>{{ $product->exciseRate }}</td>
-        <td align="right">{{ $product->exciseSum }}</td>
-        <td align="right">{{ $product->deliverySum }}</td>
-        <td>{{ $product->vatRate }}</td>
-        <td align="right">{{ $product->baseSumma * $product->vatRate/100 }}</td>
-        <td align="right">{{$product->deliverySumWithVat}}</td>
     </tr>
     }
     @endforeach
 
     <!-- END ITEMS HERE -->
     <tr>
-        <td class="totals" colspan="4">Итого:</td>
+        <td class="totals" colspan="3">Итого:</td>
         <td align="right" class="totals">{{ $countTotal }}</td>
-        <td class="totals"></td>
-        <td align="right" class="totals">{{ (float)$exciseTotal }}</td>
-        <td class="totals">{{ $deliveryTotal }}</td>
-        <td class="totals"></td>
-        <td class="totals">{{ $vatTotal }}</td>
-        <td class="totals">{{ $deliveryWithVatTotal }}</td>
     </tr>
     </tbody>
 </table>

@@ -15,9 +15,10 @@ class CreateContractPartnersTable extends Migration
     {
         Schema::create('contract_partners', function (Blueprint $table) {
             $table->id();
-
+            $table->string("contract_id", 30)->index();
             $table->string('account', 1000)->nullable();
             $table->string('name', 1000);
+            $table->integer("tin");
             $table->text('address')->nullable();
             $table->text('mobilePhone')->nullable();
             $table->text('workPhone')->nullable();

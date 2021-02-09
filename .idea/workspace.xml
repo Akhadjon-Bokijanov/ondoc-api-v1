@@ -5,8 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="377e62b5-87da-4e96-b94f-1b65c4487c07" name="Default Changelist" comment="Factura modified, stuructura configured">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/WaybillingItemController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/WaybillingItem.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/WaybillingItemFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_02_08_154452_create_waybilling_items_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/WaybillingItemSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/error404.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/pdf/act_template.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/pdf/contract_template.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/pdf/empowerment_template.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/pdf/waybilling_template.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Helper/FacturaHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helper/PdfHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ActController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ActController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CabinetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CabinetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/CarrierWayBill.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/CarrierWayBill.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Contract.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Contract.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_02_03_182447_create_carrier_way_bills_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_02_03_182447_create_carrier_way_bills_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_02_06_103139_create_contract_partners_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_02_06_103139_create_contract_partners_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pdf/factura_template.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pdf/factura_template.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +240,9 @@
       <workItem from="1612327342513" duration="15486000" />
       <workItem from="1612413157847" duration="14070000" />
       <workItem from="1612517946560" duration="14385000" />
-      <workItem from="1612586460485" duration="15959000" />
+      <workItem from="1612586460485" duration="17246000" />
+      <workItem from="1612759871552" duration="23505000" />
+      <workItem from="1612853614399" duration="1743000" />
     </task>
     <task id="LOCAL-00001" summary="Factura modified, stuructura configured">
       <created>1611752850958</created>

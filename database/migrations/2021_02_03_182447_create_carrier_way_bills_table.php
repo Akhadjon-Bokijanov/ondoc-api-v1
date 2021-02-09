@@ -62,7 +62,7 @@ class CreateCarrierWayBillsTable extends Migration
             $table->text("giverFio")->nullable();
             $table->text("giverDriverFio")->nullable();
             $table->text("takerDriverFio")->nullable();
-            $table->text("tekerFio")->nullable();
+            $table->text("takerFio")->nullable();
 
             $table->decimal("deliveryDistance", 20, 2)->nullable();
             $table->decimal("deliveryDistanceInCity", 20, 2)->nullable();

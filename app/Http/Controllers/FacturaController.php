@@ -137,6 +137,9 @@ class FacturaController extends Controller
     public function generatePdf($id){
 
         $data = Factura::with(array('facturaProducts', 'facturaProducts.measure'))->find($id);
+        if (empty($data)){
+            return view('welcome');
+        }
         //return view('pdf.factura_template', ['data'=>$data]);
 
         $pdf = PDF::loadView('pdf.factura_template', ["data"=>$data])

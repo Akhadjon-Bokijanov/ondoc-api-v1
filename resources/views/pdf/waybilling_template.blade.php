@@ -4,13 +4,19 @@ use Endroid\QrCode\LabelAlignment;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Response\QrCodeResponse;
 
-$qrCode = new QrCode('{"FileType": "1", "Tin":"'.$data->sellerTin.'", "Id":"'. $data->facturaId .'"}');
+$qrCode = new QrCode('{"FileType": "1", "Tin":"'.$data->sellerTin.'", "Id":"'. $data->wayBillId .'"}');
+
+$ordNo=1;
 
 $countTotal = 0;
 $exciseTotal = 0;
 $deliveryTotal = 0;
 $vatTotal = 0;
 $deliveryWithVatTotal =0;
+
+$totalPrice=0;
+$totalBrut=0;
+$totalNet=0;
 
 ?>
 
@@ -84,23 +90,53 @@ $deliveryWithVatTotal =0;
 </head>
 <body>
 
-<div style="border-bottom: 1px solid black; height: 18px;margin-bottom: 15px; margin-top: -17px;font-size: 11px; position: fixed; ">ID: {{ strtolower($data->facturaId) }}</div>
+<div style="border-bottom: 1px solid black; height: 18px;margin-bottom: 15px; margin-top: -17px;font-size: 11px; position: fixed; ">ID: {{ strtolower($data->wayBillId) }}</div>
 
 <div>
-<table width="100%">
-    <tr>
-        <td width="30%"></td>
-        <td width="30%" style="padding: 40px 10px;" align="center">СЧЕТ-ФАКТУРА
-            <br> № {{$data->facturaNo}}
-            <br><span style="font-size: 10px">от {{ $data->facturaDate }}</span>
-            <br>к договорам № {{ $data->contractNo }}
-            <br><span style="font-size: 10px">от {{ $data->contractDate }}</span>
-        </td>
-        <td width="30%" align="right">
-            <img style="width: 110px; height: 110px" src="{{ $qrCode->writeDataUri() }}" alt="">
-        </td>
-    </tr>
-</table>
+    <table width="100%">
+        <tr>
+            <td width="10%"></td>
+            <td width="70%" style="padding: 20px 10px 10px 10px;" align="center">ТОВАРНО-ТРАНСПОРТНАЯ НАКЛАДНАЯ
+                <br> № {{$data->wayBillNo}}
+                <br><span style="font-size: 10px">от {{ $data->wayBillDate }}</span>
+                <br>
+                <table width="100%" align="center">
+                    <tr align="center">
+                        <td>
+                            к договорам № {{ $data->contractNo }}
+                            <br><span style="font-size: 10px">от {{ $data->contractDate }}</span>
+                        </td>
+                        <td>
+                            к путевому листу № {{ $data->tripTicketNo }}
+                            <br><span style="font-size: 10px">от {{ $data->tripTicketDate }}</span>
+                        </td>
+                    </tr>
+                    <tr style="font-size: 11px">
+                        <td>
+                            <strong>Йўналиш тури:</strong> {{ $data->deliveryType ===2 ? "Сот увчидан харидорга" : "Омбордан омборгача" }}
+                        </td>
+                        <td>
+                            <strong>Автомобил: рақами:</strong> {{ $data->truckRegNo }} <strong>тури:</strong> {{ $data->truckModel }}
+                        </td>
+                    </tr>
+                    <tr style="font-size: 11px">
+                        <td>
+                            <strong>{{ $data->deliveryType ===2 ? "Ярим тиркама:  " : "Тиркама:  " }}</strong>
+                        </td>
+                        <td>
+                            <strong>рақами:</strong> {{ $data->trailerRegNo }} <strong>тури:</strong> {{ $data->trailerModel }}
+                        </td>
+                    </tr>
+                </table>
+
+
+
+            </td>
+            <td width="20%" align="right">
+                <img style="width: 110px; height: 110px" src="{{ $qrCode->writeDataUri() }}" alt="">
+            </td>
+        </tr>
+    </table>
 </div>
 
 <table width="100%">
@@ -108,18 +144,22 @@ $deliveryWithVatTotal =0;
         <td style="width: 45%">
             <table width="90%" style="font-size: 11px;" cellpadding="3">
                 <tr>
-                    <td width="150px" style="font-weight: bold; text-align: right">Поставщик:</td><td>{{ $data->sellerName }}</td>
-                    <tr>
-                    <td width="150px" style="font-weight: bold; text-align: right">Адрес:</td><td>{{ $data->sellerAddress }}</td>
+                    <td width="150px" style="font-weight: bold; text-align: right">Заказчик: </td><td>{{ $data->customerName }}</td>
+                </tr>
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">ИНН:</td><td>{{ $data->customerTin }}</td>
+                </tr>
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">Грузополучатель:</td><td>{{ $data->sellerName }}</td>
                 </tr>
                 <tr>
                     <td width="150px" style="font-weight: bold; text-align: right">ИНН:</td><td>{{ $data->sellerTin }}</td>
                 </tr>
-                    <tr>
-                        <td width="150px" style="font-weight: bold; text-align: right">Расчётный счёт:</td><td>{{ $data->sellerAccount }}</td>
-                    </tr>
                 <tr>
-                    <td width="150px" style="font-weight: bold; text-align: right">МФО банка:</td><td>{{ $data->sellerMfo }}</td>
+                    <td width="150px" style="font-weight: bold; text-align: right">Пункт погрузки:</td><td>{{ $data->pointOfLoading }}</td>
+                </tr>
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">Переадресовка:</td><td>{{ $data->pointOfRedirectName }}</td>
                 </tr>
 
             </table>
@@ -128,18 +168,22 @@ $deliveryWithVatTotal =0;
         <td style="width: 45%">
             <table width="90%" style="font-size: 11px" cellpadding="3">
                 <tr>
-                    <td width="150px" style="font-weight: bold; text-align: right">Поставщик:</td><td>{{ $data->buyerName }}</td>
+                    <td width="150px" style="font-weight: bold; text-align: right">Перевозчик:</td><td>{{ $data->carrierName }}</td>
                 <tr>
-                    <td width="150px" style="font-weight: bold; text-align: right">Адрес:</td><td>{{ $data->buyerAddress }}</td>
+                    <td width="150px" style="font-weight: bold; text-align: right">ИНН:</td><td>{{ $data->carrierTin }}</td>
+                </tr>
+                <tr>
+                    <td width="150px" style="font-weight: bold; text-align: right">Грузополучатель:</td><td>{{ $data->buyerName }}</td>
                 </tr>
                 <tr>
                     <td width="150px" style="font-weight: bold; text-align: right">ИНН:</td><td>{{ $data->buyerTin }}</td>
                 </tr>
+
                 <tr>
-                    <td width="150px" style="font-weight: bold; text-align: right">Расчётный счёт:</td><td>{{ $data->buyerAccount }}</td>
+                    <td width="150px" style="font-weight: bold; text-align: right">Пункт погрузки:</td><td>{{ $data->pointOfUnloading }}</td>
                 </tr>
                 <tr>
-                    <td width="150px" style="font-weight: bold; text-align: right">МФО банка:</td><td>{{ $data->buyerMfo }}</td>
+                    <td width="150px" style="font-weight: bold; text-align: right">Переадресовка:</td><td>{{ $data->pointOfRedirectAddress }}</td>
                 </tr>
             </table>
         </td>
@@ -152,82 +196,91 @@ $deliveryWithVatTotal =0;
     <thead>
     <tr>
         <td align="center" rowspan="2" width="3%">№</td>
-        <td align="center" rowspan="2" width="22%">Наименование товаров (работ, услуг)</td>
-        <td rowspan="2" align="center" width="20%" style="overflow-x: hidden">Идентификационный код</td>
+        <td align="center" rowspan="2" width="auto">Наименование товаров (работ, услуг)</td>
         <td rowspan="2" width="5%" align="center">Единица измерения</td>
-        <td rowspan="2" width="10%" align="center">Количество</td>
-        <td align="center" colspan="2" rowspan="1">Акциз</td>
+        <td rowspan="2" width="5%" align="center">Стоимость за единицу товара</td>
+        <td rowspan="2" width="auto" align="center">Количество</td>
+        <td rowspan="2" width="10%" align="center">Общая стоимость груза</td>
         <td rowspan="2" width="10%" align="center">Стоимость поставки</td>
-        <td align="center" colspan="2" rowspan="1">НДС</td>
-        <td rowspan="2" width="15%" align="center">Стоимость поставки с ставка сумма учётом НДС</td>
+        <td align="center" colspan="2" rowspan="1">Масса</td>
+        <td rowspan="2" width="auto" align="center">С грузом следуют документы</td>
+        <td rowspan="2" width="auto" align="center">Способ опред. массы</td>
+        <td rowspan="2" width="auto" align="center">Класс груза</td>
     </tr>
     <tr>
-        <td rowspan="1">ставка</td>
-        <td rowspan="1" style="border-right: 1px solid black">сумма</td>
-        <td rowspan="1">ставка</td>
-        <td rowspan="1" style="border-right: 1px solid black">сумма</td>
+        <td rowspan="1">брутто</td>
+        <td rowspan="1" style="border-right: 1px solid black">нетто</td>
 
     </tr>
     </thead>
     <tbody>
     <!-- ITEMS HERE -->
-    @foreach($data->facturaProducts as $product){
-        {{ $countTotal += $product->count }}
-        {{ $exciseTotal += (float)$product->exciseSum }}
-        {{ $vatTotal += $product->baseSumma * $product->vatRate/100 }}
-        {{ $deliveryTotal += $product->deliverySum }}
-        {{ $deliveryWithVatTotal += $product->deliverySumWithVat }}
+    @foreach($data->products as $product){
+    {{ $countTotal += $product->count }}
+    {{ $totalPrice += $product->price * $product->count }}
+    {{ $totalBrut += $product->weightBrut }}
+    {{ $deliveryTotal += $product->deliveryCost }}
+    {{ $totalNet += $product->weightNet }}
 
-        echo <tr>
-        <td align="center">{{$product->ordNo}}</td>
+    echo <tr>
+        <td align="center">{{ $ordNo++ }}</td>
         <td align="center">{{ $product->name }}</td>
-        <td>{{ $product->catalogCode }} - {{ $product->catalogName }}</td>
         <td class="cost">{{ $product->measure->name }}</td>
+        <td align="right">{{ $product->price }}</td>
         <td align="right">{{ $product->count }}</td>
-        <td>{{ $product->exciseRate }}</td>
-        <td align="right">{{ $product->exciseSum }}</td>
-        <td align="right">{{ $product->deliverySum }}</td>
-        <td>{{ $product->vatRate }}</td>
-        <td align="right">{{ $product->baseSumma * $product->vatRate/100 }}</td>
-        <td align="right">{{$product->deliverySumWithVat}}</td>
+        <td align="right">{{ $product->price * $product->count }}</td>
+        <td align="right">{{ $product->deliveryCost }}</td>
+        <td align="right">{{ $product->weightBrut }}</td>
+        <td align="right">{{ $product->weightNet }}</td>
+        <td align="right">{{ $product->docs }}</td>
+        <td align="right">{{ $product->weightMeasureMethod }}</td>
+        <td align="right">{{ $product->itemClass }}</td>
     </tr>
     }
     @endforeach
 
     <!-- END ITEMS HERE -->
     <tr>
-        <td class="totals" colspan="4">Итого:</td>
-        <td align="right" class="totals">{{ $countTotal }}</td>
-        <td class="totals"></td>
-        <td align="right" class="totals">{{ (float)$exciseTotal }}</td>
+        <td class="totals" colspan="3">Итого:</td>
+        <td align="right" class="totals"></td>
+        <td class="totals">{{ $countTotal }}</td>
+        <td align="right" class="totals">{{ $totalPrice }}</td>
         <td class="totals">{{ $deliveryTotal }}</td>
+        <td class="totals">{{ $totalBrut }}</td>
+        <td class="totals">{{ $totalNet }}</td>
         <td class="totals"></td>
-        <td class="totals">{{ $vatTotal }}</td>
-        <td class="totals">{{ $deliveryWithVatTotal }}</td>
+        <td class="totals"></td>
+        <td class="totals"></td>
     </tr>
     </tbody>
 </table>
 
 <table width="100%" style="margin-top: 20px; font-size: 11px" >
-    <tr>
-        <td width="15%" style="font-weight: bold">Руководитель:</td>
-        <td width="20%">{{ $data->sellerDirector }}</td>
-        <td width="15%"></td>
-        <td width="15%" style="font-weight: bold">Руководитель:</td>
-        <td width="20%">{{ $data->buyerDirector }}</td>
+    <tr style="margin-bottom: 20px">
+        <td colspan="4">
+            <h4 style="padding: 0px; margin: 0px;">Maxsus eslatmalar</h4>
+            {{ $data->specialNotes }}
+        </td>
+        <td width="40%">
+            <h4 style="margin: 0px; padding: 0px">Расстояние перевозок:</h4>
+            <strong>Всего:</strong> {{ $data->deliveryDistance }} <strong>В городе:</strong> {{ $data->deliveryDistanceInCity }}
+        </td>
     </tr>
     <tr>
-        <td width="15%" style="font-weight: bold">Главный бухгалтер:</td>
-        <td width="20%">{{ $data->sellerAccountant }}</td>
+        <td width="15%" style="font-weight: bold">Сдал:</td>
+        <td width="20%">{{ $data->giverFio }}</td>
         <td width="15%"></td>
-        <td width="15%" style="font-weight: bold">Главный бухгалтер:</td>
-        <td width="20%">{{ $data->buyerAccountant }}</td>
+        <td width="15%" style="font-weight: bold">Принял:</td>
+        <td width="20%">{{ $data->takerFio }}</td>
     </tr>
     <tr>
-        <td width="15%" style="font-weight: bold">Товар отпустил:</td>
-        <td width="20%">{{ $data->agentFio }}</td>
+        <td width="15%" style="font-weight: bold">Сдал вод./эксп.:</td>
+        <td width="20%">{{ $data->giverDriverFio }}</td>
         <td width="15%"></td>
+        <td width="15%" style="font-weight: bold">Принял вод./эксп.:</td>
+        <td width="20%">{{ $data->takerDriverFio }}</td>
     </tr>
+
 </table>
 
 <table id="stamps-table" width="100%">

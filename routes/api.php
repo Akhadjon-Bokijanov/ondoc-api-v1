@@ -75,7 +75,8 @@ Route::prefix('v1')->group(function (){
     Route::apiResource('payme', PaymeTransactionController::class);
 
     Route::apiResource("login-with-password", LoginController::class);
-    Route::get('facturas/get-pdf/{facturaId}', '\App\Http\Controllers\FacturaController@generatePdf')->name('facturas.get-pdf');
+    Route::get('{docType}/get-pdf/{facturaId}', "\App\Helper\PdfHelper@generatePdf")->name('pdfs.get-pdf');
+
 });
 
 

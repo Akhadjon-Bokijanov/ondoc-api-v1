@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Helper\RoumingHelper;
 use App\Models\Act;
 use App\Models\ActProduct;
+use App\Models\Factura;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -152,4 +154,25 @@ class ActController extends Controller
             }
         }
     }
+
+    public function generatePdf($id){
+
+        $data = Act::with(array('actProducts', 'actProducts.measure'))->find($id);
+        if (empty($data)){
+            return view('welcome');
+        }
+        //return view('pdf.act_template', ['data'=>$data]);
+
+        $pdf = PDF::loadView('pdf.act_template', ["data"=>$data])
+            ->setPaper('a4', 'landscape')
+            ->setOptions([
+                'isPhpEnabled'=>true,
+                "isHtml5ParserEnabled"=>true,
+                "isRemoteEnabled"=>true
+            ]);
+
+        $pdf->setOptions(['isPhpEnabled'=>true]);
+        return $pdf->stream('act-'.$data->facturaId.'.pdf');
+    }
+
 }

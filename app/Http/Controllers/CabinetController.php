@@ -86,7 +86,7 @@ class CabinetController extends Controller
         $all = $facturas->union($ttys)
             ->union($acts)
             ->union($contracts)
-            ->union($contracts)
+            ->union($empowerments)
             ->orderBy("created_at", "DESC")->get();
 
 
