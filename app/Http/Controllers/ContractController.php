@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helper\RoumingHelper;
 use App\Models\Contract;
 use App\Models\ContractPart;
+use App\Models\ContractPartner;
 use App\Models\ContractProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,9 +23,11 @@ class ContractController extends Controller
         //
         $contracts = Contract::where(function ($q){
             $user = $this->user();
-            $q->where('sellerTin', $user->tin)
-                ->orWhere("buyerTin", $user->tin);
-        })->get();
+            $q->where('sellerTin', $user->tin);
+                //->orWhere("buyerTin", $user->tin);
+        })
+            ->select(["contractNo", "id", "sellerName", "sellerTin", DB::raw("(SELECT GROUP_CONCAT(tin) from contract_partners where contract_id=contractId) as buyerTin"), DB::raw("(SELECT GROUP_CONCAT(name) from contract_partners where contract_id=contractId) as buyerName"), "created_at", "contractNo",DB::raw("'contract' as \"docType\""), "status"])
+            ->get();
 
         return $contracts;
     }
@@ -38,6 +41,7 @@ class ContractController extends Controller
     public function store(Request $request)
     {
         //
+
         try {
             $data = $request->all();
 
@@ -47,14 +51,16 @@ class ContractController extends Controller
             $contractId = Str::random(24);//RoumingHelper::getDocID();
             $contract = $data["contract"];
             $contract["contractId"] = $contractId;
-
             $contract["contractDate"] = date('Y-m-d 00:00:00', strtotime($contract["contractDate"]));
             $contract["contractExpireDate"] = date('Y-m-d 00:00:00', strtotime($contract["contractExpireDate"]));
+
+
 
             DB::beginTransaction();
             try {
                 $this->saveContractParts($data["parts"], $contractId);
                 $this->saveContractProducts($data["products"], $contractId);
+                $this->saveContractPartners($data["contract_partners"], $contractId);
                 Contract::create($contract);
 
             }catch (\Exception $exception){
@@ -80,7 +86,7 @@ class ContractController extends Controller
     public function show($contract)
     {
         //
-        return Contract::with(["contractProducts", "contractParts"])->find($contract);
+        return Contract::with(["contractProducts", "contractParts", "contractPartners"])->find($contract);
     }
 
     /**
@@ -104,6 +110,7 @@ class ContractController extends Controller
                 $c->update($contract);
                 $this->saveContractParts($data["parts"], $contract["contractId"]);
                 $this->saveContractProducts($data["products"], $contract["contractId"]);
+                $this->saveContractPartners($data["contract_partners"], $contract["contractId"]);
             } catch (\Exception $exception){
                 DB::rollBack();
                 return $exception->getMessage();
@@ -131,11 +138,14 @@ class ContractController extends Controller
         $contract->delete();
     }
 
-    public function saveContractProducts($products, $contractId){
+    public function saveContractProducts($products, $contractId, $delete=true){
         try {
 
             array_shift($products);
-            ContractProduct::where('contract_id', $contractId)->delete();
+            if ($delete){
+                ContractProduct::where('contract_id', $contractId)->delete();
+            }
+
 
             foreach ($products as $product){
                 if ($product){
@@ -174,9 +184,45 @@ class ContractController extends Controller
                 ContractPart::create($part);
             }
         }catch (\Exception $exception){
-            throw new \Exception($exception->getMessage());
+            return new \Exception($exception->getMessage());
         }
 
     }
 
+    public function saveContractPartners($partners, $contractId, $delete=true){
+        try {
+
+            //return $partners;
+
+            if ($delete){
+                ContractPartner::where("contract_id", $contractId)->delete();
+            }
+
+            foreach ($partners as $partner){
+                $p = new ContractPartner();
+                $p->account = $partner["buyerAccount"];
+                $p->name = $partner["buyerName"];
+                $p->tin = $partner["buyerTin"];
+                $p->address = $partner["buyerAddress"];
+                $p->mobilePhone = $partner["buyerMobilePhone"];
+                $p->workPhone = $partner["buyerWorkPhone"] ?? $partner["buyerMobilePhone"];
+                $p->director = $partner["buyerDirector"];
+                $p->directorTin = $partner["buyerDirectorTin"];
+                $p->branchCode = $partner["buyerBranch"] ?? null;
+                $p->fizTin = $partner["buyerPhysicalTin"] ?? $partner["buyerTin"];
+                $p->fizFio = $partner["buyerPhysicalFio"] ?? $partner["buyerName"];
+                $p->contract_id = $contractId;
+
+                if(!$p->save()){
+                    DB::rollBack();
+                    throw new \Exception("Partner not saved!");
+
+                }
+            }
+
+        }catch (\Exception $exception){
+            DB::rollBack();
+            return $exception->getMessage();
+        }
+    }
 }

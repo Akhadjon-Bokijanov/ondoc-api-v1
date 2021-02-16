@@ -35,11 +35,12 @@ class CreateUsersTable extends Migration
             $table->string('auth_key', 1000);
             $table->integer('status')->default(1);
             $table->string('password', 1000)->nullable();
-            $table->text('passSeries')->nullable();
-            $table->text('passNumber')->nullable();
+            $table->text('passNum')->nullable();
+            $table->dateTime("passIssuedAt")->nullable();
             $table->text('passOrg')->nullable();
             $table->text('address')->nullable();
             $table->boolean('isItd')->default(false);
+            $table->integer("role_id")->default(0);
             $table->rememberToken()->nullable();
             $table->timestamps();
         });

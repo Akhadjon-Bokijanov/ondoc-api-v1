@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ContractPartner extends Model
+class UserReadNotification extends Model
 {
     use HasFactory;
 
+    public $timestamps=false;
+
     protected $guarded=[];
 
-    public function contract(){
-        return $this->belongsTo(Contract::class, "contractId", "contract_id");
-    }
 }

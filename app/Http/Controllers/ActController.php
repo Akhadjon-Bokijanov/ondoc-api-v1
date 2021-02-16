@@ -61,6 +61,7 @@ class ActController extends Controller
             }
 
             DB::commit();
+            return ["message"=>"success", "ok"=>true];
 
         }catch (\Exception $exception){
             return $exception->getMessage();

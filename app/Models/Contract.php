@@ -30,6 +30,7 @@ class Contract extends Model
         static::deleting(function ($contract){
             $contract->contractParts()->delete();
             $contract->contractProducts()->delete();
+            $contract->contractPartners()->delete();
         });
     }
 }

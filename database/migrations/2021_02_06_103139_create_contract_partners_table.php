@@ -26,6 +26,8 @@ class CreateContractPartnersTable extends Migration
             $table->text('director')->nullable();
             $table->integer('directorTin')->nullable();
             $table->text('branchName')->nullable();
+            $table->text('fizFio')->nullable();
+            $table->integer('fizTin')->nullable();
             $table->string('branchCode', 15)->nullable();
 
             $table->timestamps();

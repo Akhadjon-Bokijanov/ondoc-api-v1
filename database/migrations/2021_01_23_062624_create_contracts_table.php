@@ -26,21 +26,10 @@ class CreateContractsTable extends Migration
             $table->text('contractPlace')->nullable();
             $table->integer('status')->default(1);
 
-            //SELLER AND BUYER || seller AND buyer
-            $table->integer('buyerTin')->index();
+            //SELLEER
             $table->integer('sellerTin')->nullable()->index();
-
-            $table->string('buyerAccount', 1000)->nullable();
-            $table->string('buyerName', 1000);
-            $table->text('buyerAddress')->nullable();
-            $table->text('buyerMobilePhone')->nullable();
-            $table->text('buyerWorkPhone')->nullable();
-            $table->text('buyerOked')->nullable();
-            $table->text('buyerDirector')->nullable();
-            $table->integer('buyerDirectorTin')->nullable();
-            $table->text('buyerBranchName')->nullable();
-            $table->string('buyerBranchCode', 15)->nullable();
-
+            $table->text("sellerFizTin")->nullable();
+            $table->text("sellerFizFio")->nullable();
             $table->string('sellerAccount', 1000)->nullable();
             $table->string('sellerName', 1000);
             $table->text('sellerAddress')->nullable();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helper\LoginHelper;
 use Illuminate\Http\Request;
 use App\Models\Company;
+use Illuminate\Http\Response;
 
 class CompanyController extends Controller
 {
@@ -52,16 +53,39 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Company $company)
     {
         //update company
-        $company = Company::find($id);
-        $company->update($request->all());
-        return $company;
+        try {
+            if ($company){
+                $data = $request->all();
+                $company->account = $data["account"];
+                $company->name = $data["name"];
+                $company->address = $data["address"];
+                $company->oked = $data["oked"];
+                $company->directorName = $data["directorName"];
+                $company->accountant = $data["accountant"];
+                $company->phone = $data["phone"];
+                $company->mfo = $data["mfo"];
+                $company->regCode = $data["regCode"];
+
+                if($company->save())
+                {
+                    return $company;
+                }
+            }
+            else return \response("company not found", 401);
+
+
+        }catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+
     }
 
     public function getByTin($tin){
         $compnany = Company::where('tin', $tin)->first();
+        $compnany["branches"] = Company::where("parentTin", $compnany->tin)->select("tin", "name")->get();
         return $compnany;
     }
 

@@ -133,30 +133,12 @@ class FacturaController extends Controller
     }
 
 
-    //Generating Factura PDF file
-    public function generatePdf($id){
 
-        $data = Factura::with(array('facturaProducts', 'facturaProducts.measure'))->find($id);
-        if (empty($data)){
-            return view('welcome');
+    public function saveProductFacturas($products, $facturaProductId, $deleteOldItems=true){
+
+        if ($deleteOldItems){
+            DB::table('factura_products')->where('facturaProductId', $facturaProductId)->delete();
         }
-        //return view('pdf.factura_template', ['data'=>$data]);
-
-        $pdf = PDF::loadView('pdf.factura_template', ["data"=>$data])
-            ->setPaper('a4', 'landscape')
-            ->setOptions([
-                'isPhpEnabled'=>true,
-                "isHtml5ParserEnabled"=>true,
-                "isRemoteEnabled"=>true
-                ]);
-
-        $pdf->setOptions(['isPhpEnabled'=>true]);
-        return $pdf->stream('factura-'.$data->facturaId.'.pdf');
-    }
-
-    public function saveProductFacturas($products, $facturaProductId){
-
-        DB::table('factura_products')->where('facturaProductId', $facturaProductId)->delete();
 
         array_shift($products);
         foreach ($products as $product){

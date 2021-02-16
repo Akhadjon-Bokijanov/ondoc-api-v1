@@ -19,7 +19,7 @@ class Controller extends BaseController
     const DOC_STATUS_ACCEPTED = 6;
     const DOC_STATUS_SEND_ACCEPTED = 7;
 
-    public function user(){
+    public static function user(){
         if (auth()->guard('api')->check()){
             $user = auth()->user();
             $user["user_type"] = "user";
@@ -32,7 +32,5 @@ class Controller extends BaseController
         }
         return null;
     }
-
-
 
 }

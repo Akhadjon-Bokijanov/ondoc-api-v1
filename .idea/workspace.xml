@@ -5,26 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="377e62b5-87da-4e96-b94f-1b65c4487c07" name="Default Changelist" comment="Factura modified, stuructura configured">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/WaybillingItemController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/WaybillingItem.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/WaybillingItemFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2021_02_08_154452_create_waybilling_items_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeders/WaybillingItemSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/error404.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/pdf/act_template.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/pdf/contract_template.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/pdf/empowerment_template.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/pdf/waybilling_template.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/UserReadNotification.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_02_16_104522_create_user_read_notifications_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/OnDoc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OnDoc.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Helper/FacturaHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helper/PdfHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Helper/PdfHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helper/PdfHelper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ActController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ActController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CabinetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CabinetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CarrierWayBillController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CarrierWayBillController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CompanyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CompanyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FacturaProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FacturaProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/CarrierWayBill.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/CarrierWayBill.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Contract.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Contract.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_02_03_182447_create_carrier_way_bills_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_02_03_182447_create_carrier_way_bills_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/ContractPartner.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ContractPartner.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/WaybillingItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/WaybillingItem.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_23_062624_create_contracts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_062624_create_contracts_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2021_02_06_103139_create_contract_partners_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_02_06_103139_create_contract_partners_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pdf/factura_template.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pdf/factura_template.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -169,6 +174,9 @@
       <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
       <path value="$PROJECT_DIR$/vendor/symfony/property-info" />
       <path value="$PROJECT_DIR$/vendor/dasprid/enum" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem-aws-s3-v3" />
+      <path value="$PROJECT_DIR$/vendor/aws/aws-sdk-php" />
+      <path value="$PROJECT_DIR$/vendor/mtdowling/jmespath.php" />
     </include_path>
   </component>
   <component name="ProjectId" id="1mhBAPFNonpWSHUNNq8CMjmA2v3" />
@@ -184,6 +192,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../edustack-api" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -242,7 +251,18 @@
       <workItem from="1612517946560" duration="14385000" />
       <workItem from="1612586460485" duration="17246000" />
       <workItem from="1612759871552" duration="23505000" />
-      <workItem from="1612853614399" duration="1743000" />
+      <workItem from="1612853614399" duration="4950000" />
+      <workItem from="1612864357381" duration="7261000" />
+      <workItem from="1612932504698" duration="6984000" />
+      <workItem from="1613029739217" duration="17060000" />
+      <workItem from="1613124534045" duration="9612000" />
+      <workItem from="1613192906919" duration="9950000" />
+      <workItem from="1613242491934" duration="115000" />
+      <workItem from="1613244970514" duration="9397000" />
+      <workItem from="1613282036444" duration="6844000" />
+      <workItem from="1613365396830" duration="3325000" />
+      <workItem from="1613395422725" duration="1737000" />
+      <workItem from="1613450396395" duration="16176000" />
     </task>
     <task id="LOCAL-00001" summary="Factura modified, stuructura configured">
       <created>1611752850958</created>

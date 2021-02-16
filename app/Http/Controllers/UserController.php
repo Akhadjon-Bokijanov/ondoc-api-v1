@@ -70,6 +70,14 @@ class UserController extends Controller
         //
     }
 
+    public function getUserByTin($tin){
+        try {
+            return User::where(["tin"=>$tin])->first();
+        }catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+    }
+
     function login(Request $request){
         try {
             $tin = request()->only(['tin']);

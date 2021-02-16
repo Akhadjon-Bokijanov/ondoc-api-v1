@@ -14,6 +14,7 @@ use \App\Http\Controllers\ActController;
 use \App\Http\Controllers\EmpowermentController;
 use \App\Http\Controllers\CarrierWayBillController;
 use \App\Http\Controllers\PaymeTransactionController;
+use \App\Http\Controllers\NotificationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -50,6 +51,8 @@ Route::prefix('v1')->group(function (){
 
         Route::apiResource('ttys', CarrierWayBillController::class);
 
+        Route::apiResource("notifications", NotificationController::class);
+
         //these are for extra document actions
 
 
@@ -58,6 +61,7 @@ Route::prefix('v1')->group(function (){
 
         Route::apiResource('companies', CompanyController::class);
         Route::get('companies/tin/{tin}', '\App\Http\Controllers\CompanyController@getByTin')->name('companies.get-by-tin');
+        Route::get('users/tin/{tin}', '\App\Http\Controllers\UserController@getUserByTin')->name('companies.get-by-tin');
 
         Route::apiResource('users', UserController::class);
 
@@ -75,7 +79,7 @@ Route::prefix('v1')->group(function (){
     Route::apiResource('payme', PaymeTransactionController::class);
 
     Route::apiResource("login-with-password", LoginController::class);
-    Route::get('{docType}/get-pdf/{facturaId}', "\App\Helper\PdfHelper@generatePdf")->name('pdfs.get-pdf');
+    Route::get('{docType}/get-pdf/{facturaId}/{authKey}/{tin}', "\App\Helper\PdfHelper@generatePdf")->name('pdfs.get-pdf');
 
 });
 

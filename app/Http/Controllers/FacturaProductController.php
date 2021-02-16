@@ -95,6 +95,10 @@ class FacturaProductController extends Controller
             }
         }
 
+        if (file_exists("storage/{$path}")){
+            unlink("storage/{$path}");
+        }
+
         return ["excel"=>$res_data];
     }
 }
