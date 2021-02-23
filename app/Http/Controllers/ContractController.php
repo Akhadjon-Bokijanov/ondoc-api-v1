@@ -28,28 +28,28 @@ class ContractController extends Controller
         }
 
         switch ($tab){
-            case "all": return Contract::where(function ($q){
+            case "all": return $this->search_paginate(Contract::where(function ($q){
                 $user = $this->user();
                 $q->where("sellerTin", $user->tin);
             })->select(["contractNo", "id", "sellerName", "sellerTin", DB::raw("(SELECT GROUP_CONCAT(tin) from contract_partners where contract_id=contractId) as \"buyerTin\""), DB::raw("(SELECT GROUP_CONCAT(name) from contract_partners where contract_id=contractId) as \"buyerName\""), "created_at", "contractNo",DB::raw("'contract' as \"docType\""), "status"])
-                ->get();
+            );
 
-            case "saved": return Contract::where([["sellerTin",$this->user()->tin], ["status",self::DOC_STATUS_SAVED]])
+            case "saved": return $this->search_paginate(Contract::where([["sellerTin",$this->user()->tin], ["status",self::DOC_STATUS_SAVED]])
                 ->select(["contractNo", "id", "sellerName", "sellerTin", DB::raw("(SELECT GROUP_CONCAT(tin) from contract_partners where contract_id=\"contractId\") as \"buyerTin\""), DB::raw("(SELECT GROUP_CONCAT(name) from contract_partners where contract_id=\"contractId\") as \"buyerName\""), "created_at", "contractNo",DB::raw("'contract' as \"docType\""), "status"])
-                ->get();
+            );
 
-            case "in": return DB::table("contract_partners")
+            case "in": return $this->search_paginate( DB::table("contract_partners")
                 ->join("contracts", "contracts.contractId", "=", "contract_partners.contract_id")
                 ->where([["contract_partners.tin", $this->user()->tin]])
                 ->select(["contractNo", "contracts.id", "sellerName", "sellerTin", DB::raw("(SELECT GROUP_CONCAT(tin) from contract_partners where contract_id=contractId) as buyerTin"), DB::raw("(SELECT GROUP_CONCAT(name) from contract_partners where contract_id=contractId) as buyerName"), "contracts.created_at", "contractNo",DB::raw("'contract' as \"docType\""), "status"])
-                ->get();
+            );
 
-            case "out": return Contract::where(function ($q){
-            $user = $this->user();
-            $q->where("sellerTin", $user->tin)
-            ->whereNotIn("status", [self::DOC_STATUS_SAVED]);
-        })->select(["contractNo", "id", "sellerName", "sellerTin", DB::raw("(SELECT GROUP_CONCAT(tin) from contract_partners where contract_id=contractId) as buyerTin"), DB::raw("(SELECT GROUP_CONCAT(name) from contract_partners where contract_id=contractId) as buyerName"), "created_at", "contractNo",DB::raw("'contract' as \"docType\""), "status"])
-            ->get();
+            case "out": return $this->search_paginate(Contract::where(function ($q){
+                $user = $this->user();
+                $q->where("sellerTin", $user->tin)
+                    ->whereNotIn("status", [self::DOC_STATUS_SAVED]);
+            })->select(["contractNo", "id", "sellerName", "sellerTin", DB::raw("(SELECT GROUP_CONCAT(tin) from contract_partners where contract_id=contractId) as buyerTin"), DB::raw("(SELECT GROUP_CONCAT(name) from contract_partners where contract_id=contractId) as buyerName"), "created_at", "contractNo",DB::raw("'contract' as \"docType\""), "status"])
+            );
         }
 
     }

@@ -25,21 +25,21 @@ class CarrierWayBillController extends Controller
             $tab=$_GET["tab"];
         }
         switch ($tab){
-            case "all": return CarrierWayBill::where(function ($q){
+            case "all": return $this->search_paginate(CarrierWayBill::where(function ($q){
                 $user=$this->user();
                 $q->where('sellerTin',$user->tin)
                     ->orWhere('buyerTin', $user->tin);
-            })->get();
+            }));
 
-            case "out": return CarrierWayBill::where("sellerTin", $this->user()->tin)
+            case "out": return $this->search_paginate(CarrierWayBill::where("sellerTin", $this->user()->tin)
                 ->whereNotIn("status", [self::DOC_STATUS_SAVED])
-                ->get();
-            case "saved": return CarrierWayBill::where("sellerTin", $this->user()->tin)
+            );
+            case "saved": return $this->search_paginate(CarrierWayBill::where("sellerTin", $this->user()->tin)
                 ->where("status", self::DOC_STATUS_SAVED)
-                ->get();
+            );
             case "in":
-            default: return CarrierWayBill::where("buyerTin", $this->user()->tin)
-                ->get();
+            default: return $this->search_paginate(CarrierWayBill::where("buyerTin", $this->user()->tin)
+        );
         }
     }
 

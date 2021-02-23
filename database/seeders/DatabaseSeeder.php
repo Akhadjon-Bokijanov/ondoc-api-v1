@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(100)->create();
+        //\App\Models\User::factory(100)->create();
 
-        Company::factory(100)->create();
+        //Company::factory(100)->create();
 
-        //Factura::factory(100)->create();
+        Factura::factory(1000)->create();
 
         //FacturaProduct::factory(500)->create();
     }

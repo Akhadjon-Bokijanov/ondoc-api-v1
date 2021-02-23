@@ -27,21 +27,21 @@ class ActController extends Controller
         }
 
         switch ($tab){
-            case "all": return Act::where(function ($q){
+            case "all": return $this->search_paginate(Act::where(function ($q){
                 $user=$this->user();
                 $q->where('sellerTin',$user->tin)
                     ->orWhere('buyerTin', $user->tin);
-            })->get();
+            }));
 
-            case "out": return Act::where("sellerTin", $this->user()->tin)
+            case "out": return $this->search_paginate(Act::where("sellerTin", $this->user()->tin)
                 ->whereNotIn("status", [self::DOC_STATUS_SAVED])
-                ->get();
-            case "saved": return Act::where("sellerTin", $this->user()->tin)
+            );
+            case "saved": return $this->search_paginate(Act::where("sellerTin", $this->user()->tin)
                 ->where("status", self::DOC_STATUS_SAVED)
-                ->get();
+            );
             case "in":
-            default: return Act::where("buyerTin", $this->user()->tin)
-                ->get();
+            default: return $this->search_paginate(Act::where("buyerTin", $this->user()->tin)
+        );
         }
     }
 

@@ -19,6 +19,18 @@ class Controller extends BaseController
     const DOC_STATUS_ACCEPTED = 6;
     const DOC_STATUS_SEND_ACCEPTED = 7;
 
+    public function limit(){
+        return $pagination_limit = isset($_GET["limit"]) ? $_GET["limit"] : 10;
+    }
+
+    public function search_paginate($query){
+        if (isset($_GET['search']) && isset($_GET["searchFrom"])){
+            return $query->where($_GET["searchFrom"], "LIKE", '%'.$_GET["search"].'%')
+                ->paginate($this->limit());
+        }
+        return $query->paginate($this->limit());
+    }
+
     public static function user(){
         if (auth()->guard('api')->check()){
             $user = auth()->user();

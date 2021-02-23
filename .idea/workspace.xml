@@ -7,10 +7,13 @@
     <list default="true" id="377e62b5-87da-4e96-b94f-1b65c4487c07" name="Default Changelist" comment="Factura modified, stuructura configured">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ActController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ActController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CabinetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CabinetController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CarrierWayBillController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CarrierWayBillController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ContractController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmpowermentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmpowermentController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FacturaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +246,10 @@
       <workItem from="1613365396830" duration="3325000" />
       <workItem from="1613395422725" duration="1737000" />
       <workItem from="1613450396395" duration="16891000" />
-      <workItem from="1613538397971" duration="6210000" />
+      <workItem from="1613538397971" duration="6927000" />
+      <workItem from="1613635067019" duration="19501000" />
+      <workItem from="1613804984814" duration="1266000" />
+      <workItem from="1614055268015" duration="4513000" />
     </task>
     <task id="LOCAL-00001" summary="Factura modified, stuructura configured">
       <created>1611752850958</created>

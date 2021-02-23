@@ -24,21 +24,21 @@ class EmpowermentController extends Controller
         }
 
         switch ($tab){
-            case "all": return Empowerment::where(function ($q){
+            case "all": return $this->search_paginate(Empowerment::where(function ($q){
                 $user=$this->user();
                 $q->where('sellerTin',$user->tin)
                     ->orWhere('buyerTin', $user->tin);
-            })->get();
+            }));
 
-            case "out": return Empowerment::where("sellerTin", $this->user()->tin)
+            case "out": return $this->search_paginate(Empowerment::where("sellerTin", $this->user()->tin)
                 ->whereNotIn("status", [self::DOC_STATUS_SAVED])
-                ->get();
-            case "saved": return Empowerment::where("sellerTin", $this->user()->tin)
+            );
+            case "saved": return $this->search_paginate(Empowerment::where("sellerTin", $this->user()->tin)
                 ->where("status", self::DOC_STATUS_SAVED)
-                ->get();
+            );
             case "in":
-            default: return Empowerment::where("buyerTin", $this->user()->tin)
-                ->get();
+            default: return $this->search_paginate(Empowerment::where("buyerTin", $this->user()->tin)
+        );
         }
 
     }

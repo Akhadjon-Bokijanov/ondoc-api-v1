@@ -35,22 +35,29 @@ class FacturaController extends Controller
         if (isset($_GET["tab"])){
             $tab=$_GET["tab"];
         }
+        $pagination_limit = isset($_GET["limit"]) ? $_GET["limit"] : 10;
         switch ($tab){
-            case "all": return Factura::where(function ($q){
-                    $user=$this->user();
-                    $q->where('sellerTin',$user->tin)
-                        ->orWhere('buyerTin', $user->tin);
-                })->get();
+            case "all": return $this->search_paginate(Factura::
+            where(function ($q){
+                $user=$this->user();
+                $q->where('sellerTin',$user->tin)
+                    ->orWhere('buyerTin', $user->tin);
+            })
+            );
 
-            case "out": return Factura::where("sellerTin", $this->user()->tin)
-                ->whereNotIn("status", [self::DOC_STATUS_SAVED])
-                ->get();
-            case "saved": return Factura::where("sellerTin", $this->user()->tin)
-                ->where("status", self::DOC_STATUS_SAVED)
-                ->get();
+            case "out": return $this->search_paginate(Factura::
+            whereNotIn("status", [self::DOC_STATUS_SAVED, self::DOC_STATUS_WAIT])
+            //->where("sellerTin", $this->user()->tin)
+                );
+            case "saved": return $this->search_paginate(Factura::
+                where("status", self::DOC_STATUS_SAVED)
+                //->where("sellerTin", $this->user()->tin)
+            );
             case "in":
-            default: return Factura::where("buyerTin", $this->user()->tin)
-                ->get();
+            default: return $this->search_paginate(Factura::where('status', self::DOC_STATUS_WAIT)
+            //where("buyerTin", $this->user()->tin)
+        );
+
         }
 
     }

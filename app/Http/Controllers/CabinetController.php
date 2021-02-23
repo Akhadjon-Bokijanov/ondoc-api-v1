@@ -58,10 +58,10 @@ class CabinetController extends Controller
             "act_awaiting"=>$awaiting_act,
             "emp_awating"=>$awaiting_emp,
             "tty_awaiting"=>$awaiting_tty,
-            //"income"=>$total_income,
-            //"outcome"=>$total_outncome,
-            //"rejected"=>$total_rejected,
-            //"saved"=>$total_saved,
+            "income"=>$this->unionQueries(0)->count(),
+            "outcome"=>$this->unionQueries(1)->count(),
+            "rejected"=>$this->unionQueries(2)->count(),
+            "saved"=>$this->unionQueries(3)->count(),
         ];
     }
 
@@ -84,16 +84,40 @@ class CabinetController extends Controller
      */
     const RECEIVED_DOCS = 0;
     const SENT_DOCS = 1;
-    const REJECTED_DOCS = 3;
-    const SAVED_DOCS = 4;
+    const REJECTED_DOCS = 2;
+    const SAVED_DOCS = 3;
 
     public function show($tab_index)
     {
-        //
-        //return $tab_index;
-        $user = $this->user();
-        $docs = [];
 
+        return $this->search_paginate($this->unionQueries($tab_index));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+
+    private function unionQueries($tab_index){
         $facturas = DB::table('facturas')
             ->where(function ($q){
                 $user = $this->user();
@@ -120,7 +144,7 @@ class CabinetController extends Controller
             ->where(function ($q){
                 $user = $this->user();
                 $q->where('sellerTin', $user["tin"]);
-                    //->orWhere([["buyerTin", $user["tin"]]], ["state", "!=", 1] );
+                //->orWhere([["buyerTin", $user["tin"]]], ["state", "!=", 1] );
             })->select(['contractNo as docNo', "sellerName", "sellerTin", DB::raw("(SELECT GROUP_CONCAT(tin) from contract_partners where contract_id=contractId) as \"buyerTin\""), DB::raw("(SELECT GROUP_CONCAT(name) from contract_partners where contract_id=contractId) as \"buyerName\""), "created_at", "contractNo",DB::raw("'contract' as \"docType\""), "status", "id"]);
 
         $ttys = DB::table('carrier_way_bills')
@@ -130,37 +154,22 @@ class CabinetController extends Controller
                     ->orWhere([["buyerTin", $user["tin"]]], ["state", "!=", 1] );
             })->select(['contractNo as docNo', "sellerName", "sellerTin", "buyerTin", "buyerName", "created_at", "contractNo",DB::raw("'tty' as \"docType\""), "status", "id"]);
 
-        $all = $facturas->union($ttys)
-            ->union($acts)
-            ->union($contracts)
-            ->union($empowerments)
-            ->orderBy("created_at", "DESC")->get();
-
-
-        return ["docs"=>$all];
-
+        return $this->tabQuery($facturas, $tab_index)
+            ->union($this->tabQuery($ttys, $tab_index))
+            ->union($this->tabQuery($acts, $tab_index))
+            ->union($this->tabQuery($contracts, $tab_index))
+            ->union($this->tabQuery($empowerments, $tab_index))
+            ->orderBy("created_at", "DESC");
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    private function tabQuery($query, $tab){
+        switch ($tab){
+            case 0:
+            default: return $query->whereIn("status", [self::DOC_STATUS_WAIT, self::DOC_STATUS_ACCEPTED]);
+            case 1: return $query->whereIn("status", [self::DOC_STATUS_SEND, self::DOC_STATUS_SEND_ACCEPTED]);
+            case 2: return $query->whereIn("status", [self::DOC_STATUS_REJECTED, self::DOC_STATUS_CANCELLED]);
+            case 3: return  $query->whereIn("status", [self::DOC_STATUS_SAVED]);
+        }
     }
 }
